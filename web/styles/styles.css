@@ -1,0 +1,78 @@
+
+/* 
+    Created on : Sep 11, 2014, 1:25:25 AM
+    Author     : Kyle
+*/
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    
+}
+
+header{
+    height: 50px;
+    background: blue;
+}
+
+#menuDisplay{
+    position: fixed;
+    height: 250px;
+    width: 80%;
+    min-width: 400px;
+    background: black;
+    overflow: hidden;
+    left: 50%;
+    margin-left: -40%;
+}
+
+.menuOption{
+    position: relative;
+    width: 20%;
+    height: 100%;
+    background: green;
+    display: inline-block;
+}
+
+#pictureLeft{
+    left: -10%;
+    opacity: .2;
+}
+
+#pictureCenter{
+    margin-left: 9%;
+    width: 40%;
+}
+
+#pictureRight{
+    position: absolute;
+    right: -10%;
+    opacity: .2;
+}
+
+.control{
+    position: fixed;
+    top: 125px;
+    height: 100px;
+    width: 100px;
+    background: rgba(255,0,0,.5);;
+}
+
+#leftControl{
+    left: 0px;
+}
+
+#rightControl{
+    right: 0px;
+}
+
+
+//Details//
+#details{
+    position: fixed;
+  border: 2px solid black;
+  width: 100%;
+}
