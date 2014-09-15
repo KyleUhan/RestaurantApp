@@ -7,72 +7,243 @@
 *{
     margin: 0px;
     padding: 0px;
+    font-family: 'Shadows Into Light', cursive;
 }
 
-body{
+body{  
+   /* background: rgba(0,127,124,.1);*/
+}
+
+h1{
+    position: fixed;
+    left: 50%;
+    margin-left: -100px;
+    width:200px;
+    color: white;
+    font-family: 'Pacifico', cursive;
+    z-index: 2;
+    text-shadow: 1px 2px #000;
     
 }
 
+#bg {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    min-width: 100%;
+    min-height: 100%;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='mainBG4Sized.jpg', sizingMethod='scale');
+    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='mainBG4Sized.jpg', sizingMethod='scale')";
+    z-index: -1;
+}
+
+
 header{
+    text-align: center;
+    width:100%;
     height: 50px;
-    background: blue;
+}
+
+#loginWrapper{
+    position:fixed;
+    width:100px;
+    right: 0px;
+    font-family: 'Pacifico', cursive;
+}
+
+#login{
+    font-family: 'Pacifico', cursive;
+    color:white;
+    text-shadow: 1px 2px #000;
+    background: rgba(255,255,255,.3);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#login:hover{
+     background: rgba(255,255,255,.8);
 }
 
 #menuDisplay{
-    position: fixed;
+    position: absolute;
     height: 250px;
     width: 80%;
     min-width: 400px;
-    background: black;
-    overflow: hidden;
     left: 50%;
     margin-left: -40%;
+    background: rgba(255,255,255,.1);
+    overflow: hidden;
+    border-radius: 2px;
+    -webkit-box-shadow: 10px 10px 10px #000;
+    -moz-box-shadow: 10px 10px 10px #000;
+    box-shadow: 10px 10px 10px #000;
+    z-index: -1;
 }
 
 .menuOption{
     position: relative;
     width: 20%;
     height: 100%;
-    background: green;
     display: inline-block;
+    outline: none;
 }
 
 #pictureLeft{
     left: -10%;
-    opacity: .2;
 }
 
 #pictureCenter{
     margin-left: 9%;
     width: 40%;
+    
 }
 
 #pictureRight{
     position: absolute;
     right: -10%;
-    opacity: .2;
 }
 
 .control{
-    position: fixed;
+    position: absolute;
     top: 125px;
     height: 100px;
     width: 100px;
-    background: rgba(255,0,0,.5);;
+    opacity: .7;
+    cursor: pointer;
+    background: rgba(0,0,0,.9);
+    background-repeat: no-repeat;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    transition: all .2s;
+}
+
+.control:hover{
+    opacity: 1;
 }
 
 #leftControl{
     left: 0px;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    background-image: url("../images/arrowL4Sized.jpg");
+    border-left: 5px solid black;
+}
+
+#leftControl:hover{
+    left: -8px;
 }
 
 #rightControl{
     right: 0px;
+    background-image: url("../images/arrowR4Sized.jpg"); 
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-right: 5px solid black;
 }
 
+#rightControl:hover{
+    right: -8px;
+}
 
-//Details//
+/*Details*/
+#detailsWrapper{
+    position: absolute;
+    top: 300px;
+    margin-left: 50%;
+    left: -40%;
+    width: 80%;
+    height: 150px;
+    min-width: 400px;
+    background: rgba(69,82,104,.8);
+    -webkit-box-shadow: 10px 10px 10px #000;
+    -moz-box-shadow: 10px 10px 10px #000;
+    box-shadow: 10px 10px 10px #000;
+}
+
+#detailsTitle{
+    font-weight: bold;
+    font-size: 20px;
+}
+
 #details{
-    position: fixed;
-  border: 2px solid black;
-  width: 100%;
+    position: relative;
+    top: 5%;
+    width: 94%;
+    height: 90%;
+    margin: 0 auto;
+    padding-right: 5px;
+    padding-left: 5px;
+    background: rgba(255,255,255,.8);
+}
+
+#addToListButton{
+    position:absolute;
+    height: 80%;
+    width: 20%;
+    top: 10%;
+    margin-left: 70%;
+    border-radius: 50%;
+    background: rgba(255,204,51,.8);
+    background: rgba(255,0,0,.8);
+    cursor: pointer;
+    -webkit-box-shadow: 10px 10px 10px #000;
+    -moz-box-shadow: 10px 10px 10px #000;
+    box-shadow: 10px 10px 10px #000;
+}
+
+#addToListButton span{
+    position: absolute;
+    top: 48%;
+    margin-top: -15px;
+    left: 50%;
+    margin-left: -19px;
+    height: 30px;
+    font-size: 22px;  
+}
+
+#addToListButton:hover{
+    background: rgba(255,0,0,1);
+}
+
+/*Order Menu*/
+#orderMenuForm{
+    position: absolute;
+    width: 78%;
+    min-width: 395px;
+    left: 10%;
+    top: 460px; 
+    font-size: 20px;
+    /*background: rgba(0,0,0,.9);*/
+    background: rgba(255,204,51,.8);
+    background: rgba(0,0,0,.8);
+    padding-bottom: 10px;
+    padding-left: 2%;
+    border-radius: 2px;
+    color: white;
+}
+.qntyInput{
+    position: absolute;
+    left: 150px;
+    width:30px;
+    text-align: center;
+    font-size: 22px;
+    border-style: none;
+    border-radius: 50%;
+    outline: 0px;
+}
+
+.removeItem{
+    position: absolute;
+    width:30px;
+    height:30px;
+    left: 190px;
+    border-radius: 50%;
+    background-image: url('../images/removeSized.png');
+    cursor: pointer;
+}
+
+.removeItem:hover{
+    -webkit-box-shadow: 0px 0px 5px 4px #fff;
+    -moz-box-shadow: 0px 0px 5px 4px #fff;
+    box-shadow: 0px 0px 5px 4px #fff;
 }

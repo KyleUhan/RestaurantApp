@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -57,6 +53,19 @@ public class FakeDB implements DataAccessStrategy {
     public List<MenuItem> getAllMenuItems() {
         return getDb();
     }
+    
+    //
+    @Override
+    public LinkedHashMap<Integer,LinkedHashMap<String,MenuItem>> getAllMenuItemsMap() {
+        LinkedHashMap<String,MenuItem> itemsInDB = new LinkedHashMap<>();
+        LinkedHashMap<Integer,LinkedHashMap<String,MenuItem>> itemsInDBbyRecord = new LinkedHashMap<>();
+        for(MenuItem mi: getDb()){
+            itemsInDB.put(mi.getItemName(), mi);
+            itemsInDBbyRecord.put(mi.getId(), itemsInDB);
+            itemsInDB = new LinkedHashMap<>();
+        }
+        return itemsInDBbyRecord;
+    }
 
     public List<MenuItem> getDb() {
         return db;
@@ -64,24 +73,5 @@ public class FakeDB implements DataAccessStrategy {
 
     public final void setDb(List<MenuItem> db) {
         this.db = db;
-    }
-
-    public static void main(String[] args) {
-        DataAccessStrategy db = new FakeDB();
-
-        db.addMenuItem(new MenuItem("Hamburger", 4.99, 300.0));
-        db.addMenuItem(new MenuItem("Taco", 2.99, 285.0));
-        db.addMenuItem(new MenuItem("Steak", 14.99, 596.0));
-        System.out.println("ITEMS ADDED USING addMenuItem");
-        System.out.println(db.getAllMenuItems());
-        MenuItem item = new MenuItem("Hamburger", 4.99, 300.0);
-        db.removeMenuItem(item);
-        System.out.println("ITEM REMOVED USING removeMenuItem");
-        System.out.println(db.getAllMenuItems());
-        MenuItem old = new MenuItem("Steak", 14.99, 596.0);
-        db.updateMenuItem(old, new MenuItem("Salad", 4.99, 122.0));
-        System.out.println("ITEM SWITCHED USING updateMenuItem");
-        System.out.println(db.getAllMenuItems());
-
     }
 }

@@ -6,6 +6,7 @@
 
 package model;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -18,5 +19,6 @@ public interface DataAccessStrategy {
     public void removeMenuItem(MenuItem mi);
     public void updateMenuItem(MenuItem oldItem, MenuItem newItem);
     public List<MenuItem> getAllMenuItems();
+    public LinkedHashMap<Integer,LinkedHashMap<String,MenuItem>> getAllMenuItemsMap();
     
 }
