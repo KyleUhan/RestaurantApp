@@ -59,7 +59,7 @@ $(function () {
         switchDetails();
     });
 
-//HANDLES ADDINT TO ORDER MENU---------------------------------------------------
+//HANDLES ADD TO ORDER MENU---------------------------------------------------
     var itemsOrdered = [];
     var orderAmount = [1, 1, 1, 1, 1];
     $('#addToListButton').click(function () {
@@ -89,7 +89,7 @@ $(function () {
 
     //listens for remove item click
     $('#orderMenuForm').on('click', '.removeItem', function () {
-        alert("TODO - remove item from list")
+        alert("TODO - remove item from list");
 
     });
 });

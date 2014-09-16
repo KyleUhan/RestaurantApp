@@ -66,6 +66,11 @@ public class FakeDB implements DataAccessStrategy {
         }
         return itemsInDBbyRecord;
     }
+    
+    @Override
+    public void clearAllData(){
+        getDb().clear();
+    }
 
     public List<MenuItem> getDb() {
         return db;

@@ -58,6 +58,8 @@ public class AdminController extends HttpServlet {
         item.setItemPicture(itemImage);
 
         db.addMenuItem(item);
+        //To quick clear data use below
+       // db.clearAllData();
 
         List<MenuItem> all = db.getAllMenuItems();
         session.setAttribute("dbContent", all);

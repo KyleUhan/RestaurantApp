@@ -18,6 +18,7 @@ public interface DataAccessStrategy {
     public void addMenuItem(MenuItem mi);
     public void removeMenuItem(MenuItem mi);
     public void updateMenuItem(MenuItem oldItem, MenuItem newItem);
+    public void clearAllData();
     public List<MenuItem> getAllMenuItems();
     public LinkedHashMap<Integer,LinkedHashMap<String,MenuItem>> getAllMenuItemsMap();
     

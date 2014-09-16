@@ -17,8 +17,8 @@ body{
 h1{
     position: fixed;
     left: 50%;
-    margin-left: -100px;
-    width:200px;
+    margin-left: -125px;
+    width:250px;
     color: white;
     font-family: 'Pacifico', cursive;
     z-index: 2;
