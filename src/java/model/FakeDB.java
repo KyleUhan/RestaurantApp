@@ -15,6 +15,19 @@ public class FakeDB implements DataAccessStrategy {
 
     public FakeDB() {
         setDb(new ArrayList<>());
+       
+        getDb().add(new MenuItem("","","","","images/fillerItemFadeL.png"));
+        getDb().add(new MenuItem("IMPORTED COFFEE","2.99","180","Fine imported coffee. Molto Bene!"
+        ,"images/coffee2.png"));
+        getDb().add(new MenuItem("LATTE","2.99","180","Thanks a Latte.."
+        ,"images/coffee3.jpg"));
+        getDb().add(new MenuItem("HOUSE COFFEE","2.99","180","Our famous home made coffee!"
+        ,"images/coffeeSized.jpg"));
+        getDb().add(new MenuItem("DESSERT COFFEE","2.99","180","Calorie counters go away."
+        ,"images/coffee5.jpg"));
+        getDb().add(new MenuItem("MUFFIN","2.99","180","These muffins are out of control."
+        ,"images/muffinSized.jpg"));
+        getDb().add(new MenuItem("","","","","images/fillerItemFadeR.png"));
     }
 
     @Override

@@ -25,11 +25,17 @@ public class MenuItem {
         id = id_manager;
     }
 
-   /* public MenuItem(String itemName, String itemPrice, String itemCalories) {
+    public MenuItem(String itemName, String itemPrice, String itemCalories, 
+            String itemDescription, String itemPicture) {
+        id_manager++;
+        id = id_manager;
+        setId(id);
         setItemName(itemName);
         setItemPrice(itemPrice);
         setItemCalories(itemCalories);
-    }*/
+        setItemDescription(itemDescription);
+        setItemPicture(itemPicture);
+    }
 
     public final String getItemName() {
         return itemName;

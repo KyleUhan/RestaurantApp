@@ -11,7 +11,7 @@
 }
 
 body{  
-   /* background: rgba(0,127,124,.1);*/
+    /* background: rgba(0,127,124,.1);*/
 }
 
 h1{
@@ -23,7 +23,7 @@ h1{
     font-family: 'Pacifico', cursive;
     z-index: 2;
     text-shadow: 1px 2px #000;
-    
+
 }
 
 #bg {
@@ -32,8 +32,8 @@ h1{
     left: 0; 
     min-width: 100%;
     min-height: 100%;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='mainBG4Sized.jpg', sizingMethod='scale');
-    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='mainBG4Sized.jpg', sizingMethod='scale')";
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='background3.gif', sizingMethod='scale');
+    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='background3.gif', sizingMethod='scale')";
     z-index: -1;
 }
 
@@ -61,7 +61,7 @@ header{
 }
 
 #login:hover{
-     background: rgba(255,255,255,.8);
+    background: rgba(255,255,255,.8);
 }
 
 #menuDisplay{
@@ -71,9 +71,10 @@ header{
     min-width: 400px;
     left: 50%;
     margin-left: -40%;
-    background: rgba(255,255,255,.1);
-    overflow: hidden;
+    border-left: 1px solid black;
     border-radius: 2px;
+    overflow: hidden;
+    background: rgba(255,255,255,.1);
     -webkit-box-shadow: 10px 10px 10px #000;
     -moz-box-shadow: 10px 10px 10px #000;
     box-shadow: 10px 10px 10px #000;
@@ -95,7 +96,6 @@ header{
 #pictureCenter{
     margin-left: 9%;
     width: 40%;
-    
 }
 
 #pictureRight{
@@ -183,8 +183,7 @@ header{
     top: 10%;
     margin-left: 70%;
     border-radius: 50%;
-    background: rgba(255,204,51,.8);
-    background: rgba(255,0,0,.8);
+    background: rgba(81,58,45,.8);
     cursor: pointer;
     -webkit-box-shadow: 10px 10px 10px #000;
     -moz-box-shadow: 10px 10px 10px #000;
@@ -202,7 +201,7 @@ header{
 }
 
 #addToListButton:hover{
-    background: rgba(255,0,0,1);
+    background: rgba(204,187,172,1);
 }
 
 /*Order Menu*/
@@ -213,7 +212,6 @@ header{
     left: 10%;
     top: 460px; 
     font-size: 20px;
-    /*background: rgba(0,0,0,.9);*/
     background: rgba(255,204,51,.8);
     background: rgba(0,0,0,.8);
     padding-bottom: 10px;
@@ -221,9 +219,13 @@ header{
     border-radius: 2px;
     color: white;
 }
+
+.itemNameInUserOrder{
+    width: 180px;
+    float: left;
+}
+
 .qntyInput{
-    position: absolute;
-    left: 150px;
     width:30px;
     text-align: center;
     font-size: 22px;
@@ -233,12 +235,13 @@ header{
 }
 
 .removeItem{
-    position: absolute;
-    width:30px;
+    float:left;
+    width: 30px;
     height:30px;
-    left: 190px;
+    margin-right: 10px;
     border-radius: 50%;
     background-image: url('../images/removeSized.png');
+    background-repeat: no-repeat;
     cursor: pointer;
 }
 
@@ -246,4 +249,22 @@ header{
     -webkit-box-shadow: 0px 0px 5px 4px #fff;
     -moz-box-shadow: 0px 0px 5px 4px #fff;
     box-shadow: 0px 0px 5px 4px #fff;
+}
+
+#submitMenu{
+    float:right;
+    width: 70px;
+    height: 60px;
+    font-size: 20px;
+    margin-right: 20px;
+    border-radius: 50%;
+    cursor:pointer;
+}
+
+#submitMenu:hover{
+    background: rgba(204,187,172,1);
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    transition: all .3s;
+    font-size: 24px;
 }

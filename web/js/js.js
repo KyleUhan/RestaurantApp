@@ -1,8 +1,12 @@
 $(function () {
+    //The following 3 lines are needed to clear up 1st and last spot in array - convert to function later
+    if (menuOptionPics !== null) {
+        var menuLen = menuOptionPics.length - 1;
+        menuOptionPics[0] = menuOptionPics[0].substring(1);
+        menuOptionPics[menuLen] = menuOptionPics[menuLen].substring(1, (menuOptionPics[menuLen].length - 1));
+    }
 
-    //This will be pulled from db of item objects - which will be set from admin screen
-    var menuOptionPics = ["images/fillerItemFadeL.png", "images/croissantSized.jpg", "images/pastrySized.jpg", "images/muffinSized.jpg", "images/saladSteakSized.jpg", "images/coffeeSized.jpg", "images/fillerItemFadeR.png"];
-    var description = ["?", "CROISSANT", "PASTRY", "MUFFIN", "STEAK SALAD", "HOUSE COFFEE", "?"];
+    //Holds the spots of the items displayed in the slider
     var menuOptionSpot = [0, 1, 2];
 
 //HANDLES SLIDER---------------------------------------------------
@@ -46,7 +50,8 @@ $(function () {
     }
 
     function switchDetails() {
-        $('#detailsTitle').text(description[menuOptionSpot[1]]);
+        $('#detailsTitle').text(menuItemName[menuOptionSpot[1]]);
+        $('#detailsDescription').text(menuItemDescription[menuOptionSpot[1]]);
     }
 
 //HANDLES SLIDER Controls---------------------------------------------------
@@ -63,7 +68,7 @@ $(function () {
     var itemsOrdered = [];
     var orderAmount = [1, 1, 1, 1, 1];
     $('#addToListButton').click(function () {
-        var item = description[menuOptionSpot[1]];
+        var item = menuItemName[menuOptionSpot[1]];
         var repeatItem = false;
         for (var i = 0; i < itemsOrdered.length; i++) {
             if (itemsOrdered[i] === item) {
@@ -77,20 +82,20 @@ $(function () {
         $('#orderMenuForm').html("");
         var displayText = "";
         for (var t = 0; t < itemsOrdered.length; t++) {
-            displayText = displayText + "<br>" + itemsOrdered[t] +
-                    "<input type='text' maxlength='2' class='qntyInput' \n\
+            displayText = displayText + "<br><div class='removeItem'></div><div class='itemNameInUserOrder'>" + itemsOrdered[t] +
+                    "</div><input type='text' maxlength='2' class='qntyInput' \n\
                     name='" + itemsOrdered[t] + "' \n\
                     id='" + itemsOrdered[t] + "'\n\
-                    value='" + orderAmount[t] + "'/><span class='removeItem'></span>";
+                    value='" + orderAmount[t] + "'/>";
 
         }
-        $('#orderMenuForm').append("<p>" + displayText + "</p>");
+        $('#orderMenuForm').append(displayText);
+        $('#orderMenuForm').append("<input type='submit' id='submitMenu' value='Order'/>");
     });
 
     //listens for remove item click
     $('#orderMenuForm').on('click', '.removeItem', function () {
         alert("TODO - remove item from list");
-
     });
 });
 

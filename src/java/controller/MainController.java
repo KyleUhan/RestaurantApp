@@ -6,11 +6,16 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.DataAccessStrategy;
+import model.FakeDBSingleton;
+import model.MenuItem;
 
 /**
  *
@@ -30,7 +35,31 @@ public class MainController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-     
+
+        String redirectPage;
+        RequestDispatcher view;
+
+        String loadMenu = request.getParameter("command");
+        switch (loadMenu) {
+            case "getMenuItems":
+                redirectPage = "index.jsp";
+
+                DataAccessStrategy fakeDB = FakeDBSingleton.getInstance();
+                List<MenuItem> menuItems = fakeDB.getAllMenuItems();
+
+                request.setAttribute("menuItems", menuItems);
+
+                view = request.getRequestDispatcher(redirectPage);
+                view.forward(request, response);
+                break;
+            case "orderReady":
+                redirectPage = "OrderConfirmation.jsp";
+                view = request.getRequestDispatcher(redirectPage);
+                view.forward(request, response);
+                break;
+            default:
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
