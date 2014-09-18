@@ -11,7 +11,7 @@ public class FakeDBSingleton {
     public FakeDBSingleton() {
     }
 
-    public static DataAccessStrategy getInstance() {
+    public static DataAccessStrategy getNewInstance() {
         if (fakeDB == null) {
             fakeDB = new FakeDB();
         }

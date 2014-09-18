@@ -27,7 +27,6 @@ import model.MenuItem;
  */
 @WebServlet(name = "AdminController", urlPatterns = {"/AdminController"})
 public class AdminController extends HttpServlet {
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      *
@@ -42,7 +41,7 @@ public class AdminController extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-        DataAccessStrategy db = FakeDBSingleton.getInstance();
+        DataAccessStrategy db = FakeDBSingleton.getNewInstance();
 
         MenuItem item = new MenuItem();
         String itemName = request.getParameter("itemName");

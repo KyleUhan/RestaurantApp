@@ -9,4 +9,40 @@
             30
         </session-timeout>
     </session-config>
+    
+     <context-param>
+        <param-name>title</param-name>
+        <param-value>Kyle's Cafe</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>login</param-name>
+        <param-value>Login</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>background</param-name>
+        <param-value>images/background3.gif</param-value>
+    </context-param>
+    
+     <context-param>
+        <param-name>tax</param-name>
+        <param-value>.2</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>dataAccess</param-name>
+        <param-value>model.FakeDB</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>index</param-name>
+        <param-value>index.jsp</param-value>
+    </context-param>
+  
+    <context-param>
+        <param-name>confirmOrder</param-name>
+        <param-value>OrderConfirmation.jsp</param-value>
+    </context-param>
+    
 </web-app>

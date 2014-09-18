@@ -57,7 +57,7 @@ $(function () {
         $('#detailsPrice').text("$" + menuItemPrice[menuOptionSpot[1]]);
     }
 
-//HANDLES SLIDER Controls---------------------------------------------------
+//HANDLES SLIDER CONTROLS---------------------------------------------------
     $('#leftControl').click(function () {
         switchMenuOptions(true);
         switchDetails();

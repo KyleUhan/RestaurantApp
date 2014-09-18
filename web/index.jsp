@@ -12,16 +12,16 @@
 <!DOCTYPE html>
 <%
     //LIST OF ACTUAL MENU ITEMS
-    List<MenuItem> menuItems = new ArrayList<MenuItem>();
+    List<MenuItem> menuItems = new ArrayList<MenuItem>(30);
     //LISTS OF EACH SPECIFIC PORTION OF MENUITEM NEEDEED.
     List<String> menuImages = new ArrayList<String>();
     List<String> menuName = new ArrayList<String>();
     List<String> menuDescription = new ArrayList<String>();
     List<Double> menuPrice = new ArrayList<Double>();
     List<Double> menuCalorie = new ArrayList<Double>();
-    
+
     Object obj = request.getAttribute("menuItems");
-    
+
     if (obj == null) {
         response.sendRedirect("MainController?command=getMenuItems");
     } else {
@@ -43,9 +43,9 @@
         <link href="styles/styles.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
         <script src="js/js.js" type="text/javascript"></script>
-        <title>Ummm Ummm Good</title>
+        <title><% out.print(getServletContext().getInitParameter("title"));%></title>
         <script>
-            
+
             var menuOptionPics = ('<%=menuImages%>').split(",");
             var menuItemName = '<%=menuName%>'.split(",");
             var menuItemDescription = '<%=menuDescription%>'.split(",");
@@ -54,12 +54,12 @@
         </script>
     </head>
     <body>
-        <img src="images/background3.gif" id="bg" alt="">
+        <img src='<%out.print(getServletContext().getInitParameter("background"));%>' id="bg" alt="">
         <header>
-            <h1> - Kyle's Cafe -</h1>
+            <h1> - <% out.print(getServletContext().getInitParameter("title")); %> -</h1>
             <div id='loginWrapper'>
                 <span id='userName'></span>
-                <span id='login'>Login</span>
+                <span id='login'><% out.print(getServletContext().getInitParameter("login"));%></span>
             </div>
         </header>
         <div id='menuDisplay'>

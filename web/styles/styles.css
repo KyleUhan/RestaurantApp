@@ -36,7 +36,6 @@ h1{
     z-index: -1;
 }
 
-
 header{
     text-align: center;
     width:100%;
@@ -63,6 +62,7 @@ header{
     background: rgba(255,255,255,.8);
 }
 
+/*MAIN PAGE - INDEX*/
 #menuDisplay{
     position: absolute;
     height: 250px;
@@ -144,7 +144,7 @@ header{
     right: -8px;
 }
 
-/*Details*/
+/*DETAILS*/
 #detailsWrapper{
     position: absolute;
     top: 300px;
@@ -326,6 +326,7 @@ header{
     padding: 10px;
     font-size: 22px;
     top: 50px;
+    min-width: 300px;
 }
 
 .blockOfInfo{
@@ -334,7 +335,6 @@ header{
 }
 
 .addedAmounts{
-    
     width:60px;
     margin-left: 10px;
     text-align: center;
@@ -353,10 +353,39 @@ header{
 }
 
 #totalWrapper{
-  background: rgba(0,255,0,.8);
-  text-align: right;
-  padding-right: 5px;
-  border-radius: 20px;
+    background: rgba(0,255,0,.8);
+    text-align: right;
+    padding-right: 5px;
+    border-radius: 20px;
+}
 
+#thanksMessage{
+    background: rgb(81,58,45);
+    position:fixed;
+
+    border-radius: 10px;
+    width: 300px;
+    height: 200px;
+    top: 55px;
+    text-align: center
+}
+
+#innerThanksMessage{
+    position: relative;
+    top: 75px;
+    padding: 10px;
+    background: rgba(204,187,172,.3);
+}
+
+#completeOrder{
+    position: absolute;
+    bottom:10px;
+}
+
+#orderCompleteSubmit{
+    width:100px;
+    height: 70px;
+    font-size: 22px;
+    cursor: pointer;
 }
 

@@ -16,7 +16,17 @@ import java.util.List;
  */
 public class CalculateOrderTotal {
     
-    public static String calculateTotal(List<String> eachItem, double tax){
+    private double tax;
+    private String adjustedTax;
+
+    public CalculateOrderTotal(double tax) {
+        setTax(tax);
+    }
+    
+    
+    
+    public String calculateTotal(List<String> eachItem){
+        Double tax;
         NumberFormat nf = NumberFormat.getCurrencyInstance();
         if(eachItem == null){
             eachItem = new ArrayList<>();
@@ -25,9 +35,30 @@ public class CalculateOrderTotal {
         for(String item: eachItem){
             total = total + Double.parseDouble(item);
         }
-        tax = (total * tax);
+        tax = (total * getTax());
+        setAdjustedTax(nf.format(tax));
         total = total + tax;
         return nf.format(total);
     }
+
+    public double getTax() {
+        return tax;
+    }
+
+    public void setTax(double tax) {
+        this.tax = tax;
+    }
+
+    public String getAdjustedTax() {
+        return adjustedTax;
+    }
+
+    public void setAdjustedTax(String adjustedTax) {
+        this.adjustedTax = adjustedTax;
+    }
+    
+    
+    
+    
  
 }

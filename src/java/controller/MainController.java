@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.CalculateOrderTotal;
+import model.DataAccessService;
 import model.DataAccessStrategy;
 import model.FakeDBSingleton;
 import model.MenuItem;
@@ -48,31 +49,35 @@ public class MainController extends HttpServlet {
 
         switch (loadMenu) {
             case "getMenuItems":
-                redirectPage = "index.jsp";
+                redirectPage = getServletContext().getInitParameter("index");
+                //DataAccessStrategy fakeDB = FakeDBSingleton.getNewInstance();
+                //DataAccessService accessService = new DataAccessService(fakeDB);
+                
+                String dbUsed = getServletContext().getInitParameter("dataAccess");
 
-                DataAccessStrategy fakeDB = FakeDBSingleton.getInstance();
-                List<MenuItem> menuItems = fakeDB.getAllMenuItems();
+                DataAccessService accessService = new DataAccessService(dbUsed);
+                List<MenuItem> menuItems = accessService.getAllMenuItems();
 
                 request.setAttribute("menuItems", menuItems);
 
                 break;
             case "orderReady":
-                redirectPage = "OrderConfirmation.jsp";
-                Double tax = .5;
-                
+                redirectPage = getServletContext().getInitParameter("confirmOrder");
+
                 List<String> itemNames = new ArrayList<>();
                 List<String> qnty = new ArrayList<>();
                 List<String> itemAmountOwed = new ArrayList<>();
-                
+
                 String totalItems = request.getParameter("amountOfItems");
-                
+
                 for (int i = 0; i < (Integer.parseInt(totalItems) + 1); i++) {
                     itemNames.add(request.getParameter("itemName" + i));
                     qnty.add(request.getParameter("quantity" + i));
                     itemAmountOwed.add(request.getParameter("totalOwedPerItem" + i));
                 }
-                
-                String total = CalculateOrderTotal.calculateTotal(itemAmountOwed, tax);
+                CalculateOrderTotal ct = new CalculateOrderTotal(Double.valueOf(getServletContext().getInitParameter("tax")));
+                String total = ct.calculateTotal(itemAmountOwed);
+                String tax = ct.getAdjustedTax();
 
                 request.setAttribute("itemName", itemNames);
                 request.setAttribute("qnty", qnty);
@@ -81,7 +86,26 @@ public class MainController extends HttpServlet {
                 request.setAttribute("total", total);
 
                 break;
+            case "orderComplete":
+                redirectPage = getServletContext().getInitParameter("confirmOrder");
+                String complete = "Complete";
+
+                request.setAttribute("itemName", null);
+                request.setAttribute("qnty", null);
+                request.setAttribute("pricePerItem", null);
+                request.setAttribute("tax", null);
+                request.setAttribute("total", null);
+                request.setAttribute("complete", complete);
+
+                String thankyou = "Thankyou for your order";
+                request.setAttribute("thanks", thankyou);
+
+                break;
+            case "sendToMenu":
+                redirectPage = getServletContext().getInitParameter("index");
+                break;
             default:
+                redirectPage = "";
         }
 
         view = request.getRequestDispatcher(redirectPage);
