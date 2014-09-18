@@ -6,6 +6,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.CalculateOrderTotal;
 import model.DataAccessStrategy;
 import model.FakeDBSingleton;
 import model.MenuItem;
@@ -36,10 +39,13 @@ public class MainController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String redirectPage;
+        HttpSession session = request.getSession();
+
+        String redirectPage = "";
         RequestDispatcher view;
 
         String loadMenu = request.getParameter("command");
+
         switch (loadMenu) {
             case "getMenuItems":
                 redirectPage = "index.jsp";
@@ -49,16 +55,37 @@ public class MainController extends HttpServlet {
 
                 request.setAttribute("menuItems", menuItems);
 
-                view = request.getRequestDispatcher(redirectPage);
-                view.forward(request, response);
                 break;
             case "orderReady":
                 redirectPage = "OrderConfirmation.jsp";
-                view = request.getRequestDispatcher(redirectPage);
-                view.forward(request, response);
+                Double tax = .5;
+                
+                List<String> itemNames = new ArrayList<>();
+                List<String> qnty = new ArrayList<>();
+                List<String> itemAmountOwed = new ArrayList<>();
+                
+                String totalItems = request.getParameter("amountOfItems");
+                
+                for (int i = 0; i < (Integer.parseInt(totalItems) + 1); i++) {
+                    itemNames.add(request.getParameter("itemName" + i));
+                    qnty.add(request.getParameter("quantity" + i));
+                    itemAmountOwed.add(request.getParameter("totalOwedPerItem" + i));
+                }
+                
+                String total = CalculateOrderTotal.calculateTotal(itemAmountOwed, tax);
+
+                request.setAttribute("itemName", itemNames);
+                request.setAttribute("qnty", qnty);
+                request.setAttribute("pricePerItem", itemAmountOwed);
+                request.setAttribute("tax", tax);
+                request.setAttribute("total", total);
+
                 break;
             default:
         }
+
+        view = request.getRequestDispatcher(redirectPage);
+        view.forward(request, response);
 
     }
 

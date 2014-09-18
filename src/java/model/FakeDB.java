@@ -17,15 +17,15 @@ public class FakeDB implements DataAccessStrategy {
         setDb(new ArrayList<>());
        
         getDb().add(new MenuItem("","","","","images/fillerItemFadeL.png"));
-        getDb().add(new MenuItem("IMPORTED COFFEE","2.99","180","Fine imported coffee. Molto Bene!"
+        getDb().add(new MenuItem("IMPORTED COFFEE","2.99","100","Fine imported coffee. Molto Bene!"
         ,"images/coffee2.png"));
-        getDb().add(new MenuItem("LATTE","2.99","180","Thanks a Latte.."
+        getDb().add(new MenuItem("LATTE","3.49","210","Thanks a Latte.."
         ,"images/coffee3.jpg"));
-        getDb().add(new MenuItem("HOUSE COFFEE","2.99","180","Our famous home made coffee!"
+        getDb().add(new MenuItem("HOUSE COFFEE","1.99","65","Our famous home made coffee!"
         ,"images/coffeeSized.jpg"));
-        getDb().add(new MenuItem("DESSERT COFFEE","2.99","180","Calorie counters go away."
+        getDb().add(new MenuItem("DESSERT COFFEE","3.95","480","Calorie counters go away."
         ,"images/coffee5.jpg"));
-        getDb().add(new MenuItem("MUFFIN","2.99","180","These muffins are out of control."
+        getDb().add(new MenuItem("MUFFIN","3.55","225","These muffins are out of control."
         ,"images/muffinSized.jpg"));
         getDb().add(new MenuItem("","","","","images/fillerItemFadeR.png"));
     }

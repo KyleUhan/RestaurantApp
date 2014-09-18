@@ -7,12 +7,12 @@
 <%@page import="model.MenuItem"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
     //LIST OF ACTUAL MENU ITEMS
     List<MenuItem> menuItems = new ArrayList<MenuItem>();
-    
     //LISTS OF EACH SPECIFIC PORTION OF MENUITEM NEEDEED.
     List<String> menuImages = new ArrayList<String>();
     List<String> menuName = new ArrayList<String>();
@@ -33,9 +33,7 @@
             menuPrice.add(mi.getItemPrice());
             menuCalorie.add(mi.getItemCalories());
         }
-
     }
-
 %>
 <html>
     <head>
@@ -51,6 +49,7 @@
             var menuOptionPics = ('<%=menuImages%>').split(",");
             var menuItemName = '<%=menuName%>'.split(",");
             var menuItemDescription = '<%=menuDescription%>'.split(",");
+            var menuItemPrice = '<%=menuPrice%>'.split(",");
 
         </script>
     </head>
@@ -75,8 +74,10 @@
                 <span id='detailsTitle'>
                     Welcome to the cafe!
                 </span><br>
-                <span id='detailsDescription'>
-                </span>
+                <div id='detailsDescription'>
+                </div><br>
+                <div id='detailsPrice'>
+                </div>
                 <div id='addToListButton'>
                     <span>
                         ADD
@@ -84,7 +85,7 @@
                 </div>
             </div>
         </div>
-        <form id='orderMenuForm' name='orderMenuForm' method='post' action='MainController?command=orderReady'>  
+        <form id='orderMenuForm' name='orderMenuForm' method='post' action='MainController?command=orderReady'> 
         </form>
     </body>
 </html>

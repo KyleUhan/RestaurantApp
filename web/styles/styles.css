@@ -23,7 +23,6 @@ h1{
     font-family: 'Pacifico', cursive;
     z-index: 2;
     text-shadow: 1px 2px #000;
-
 }
 
 #bg {
@@ -112,9 +111,9 @@ header{
     cursor: pointer;
     background: rgba(0,0,0,.9);
     background-repeat: no-repeat;
-    -webkit-transition: all .2s;
-    -moz-transition: all .2s;
-    transition: all .2s;
+    -webkit-transition: left .2s, right .2s;
+    -moz-transition: left .2s, right .2s;
+    transition: left .2s, right .2s;
 }
 
 .control:hover{
@@ -160,11 +159,6 @@ header{
     box-shadow: 10px 10px 10px #000;
 }
 
-#detailsTitle{
-    font-weight: bold;
-    font-size: 20px;
-}
-
 #details{
     position: relative;
     top: 5%;
@@ -174,6 +168,26 @@ header{
     padding-right: 5px;
     padding-left: 5px;
     background: rgba(255,255,255,.8);
+}
+
+#detailsTitle{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#detailsDescription{
+    float:left;
+}
+
+#detailsPrice{
+    position: relative;
+    bottom:-20px;
+    left: 20px;
+    font-size: 22px;
+    font-weight: bold;
+    font-style: italic;
+    width: 100px;
+    height: 30px;
 }
 
 #addToListButton{
@@ -188,6 +202,9 @@ header{
     -webkit-box-shadow: 10px 10px 10px #000;
     -moz-box-shadow: 10px 10px 10px #000;
     box-shadow: 10px 10px 10px #000;
+    -webkit-transition: background .2s;
+    -moz-transition: background .2s;
+    transition: background .2s;
 }
 
 #addToListButton span{
@@ -212,7 +229,6 @@ header{
     left: 10%;
     top: 460px; 
     font-size: 20px;
-    background: rgba(255,204,51,.8);
     background: rgba(0,0,0,.8);
     padding-bottom: 10px;
     padding-left: 2%;
@@ -220,22 +236,15 @@ header{
     color: white;
 }
 
-.itemNameInUserOrder{
-    width: 180px;
-    float: left;
+.orderItemWrapper{
+    clear:both;
 }
 
-.qntyInput{
-    width:30px;
-    text-align: center;
-    font-size: 22px;
-    border-style: none;
-    border-radius: 50%;
-    outline: 0px;
+.removeItem, .itemNameInUserOrder, .qntyInput, .menuPrice, .totalItemPrice{
+    float:left;
 }
 
 .removeItem{
-    float:left;
     width: 30px;
     height:30px;
     margin-right: 10px;
@@ -249,6 +258,42 @@ header{
     -webkit-box-shadow: 0px 0px 5px 4px #fff;
     -moz-box-shadow: 0px 0px 5px 4px #fff;
     box-shadow: 0px 0px 5px 4px #fff;
+}
+
+.itemNameInUserOrder{
+    width: 180px;
+    text-align: left;
+    font-size: 22px;
+    border-style: none;
+    outline: 0px;
+    background:none;
+    color:white;
+
+}
+
+.menuPrice{
+    width: 60px;
+    margin-left: 5px;
+}
+
+.qntyInput{
+    width:30px;
+    text-align: center;
+    font-size: 22px;
+    border-style: none;
+    border-radius: 50%;
+    outline: 0px;
+}
+
+.totalItemPrice{
+    width:60px;
+    margin-left: 10px;
+    text-align: center;
+    font-size: 22px;
+    border-style: none;
+    outline: 0px;
+    background:none;
+    color:white;
 }
 
 #submitMenu{
@@ -268,3 +313,50 @@ header{
     transition: all .3s;
     font-size: 24px;
 }
+
+/*ORDER CONFIRMATION PAGE*/
+
+#orderWrapper{
+    position: fixed;
+    width: 90%;
+    height: 80%;
+    background: rgba(0,0,0,.8);
+    margin-left: 5%;
+    color:white;
+    padding: 10px;
+    font-size: 22px;
+    top: 50px;
+}
+
+.blockOfInfo{
+    float:left;
+    padding: 5px;
+}
+
+.addedAmounts{
+    
+    width:60px;
+    margin-left: 10px;
+    text-align: center;
+    font-size: 22px;
+    border-style: none;
+    outline: 0px;
+    background:none;
+    color:white;
+}
+
+#totals{
+    clear:left;
+    width: 150px;
+    margin-left: 130px;
+    text-align: right;
+}
+
+#totalWrapper{
+  background: rgba(0,255,0,.8);
+  text-align: right;
+  padding-right: 5px;
+  border-radius: 20px;
+
+}
+

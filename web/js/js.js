@@ -20,9 +20,9 @@ $(function () {
     function centerImageFade() {
         $('#pictureCenter').animate({
             opacity: "0"
-        }, 300).animate({
+        }, 200).animate({
             opacity: "1"
-        }, 300);
+        }, 200);
     }
 
     function switchMenuOptions(right) {
@@ -50,8 +50,11 @@ $(function () {
     }
 
     function switchDetails() {
+
+
         $('#detailsTitle').text(menuItemName[menuOptionSpot[1]]);
         $('#detailsDescription').text(menuItemDescription[menuOptionSpot[1]]);
+        $('#detailsPrice').text("$" + menuItemPrice[menuOptionSpot[1]]);
     }
 
 //HANDLES SLIDER Controls---------------------------------------------------
@@ -81,16 +84,34 @@ $(function () {
         }
         $('#orderMenuForm').html("");
         var displayText = "";
-        for (var t = 0; t < itemsOrdered.length; t++) {
-            displayText = displayText + "<br><div class='removeItem'></div><div class='itemNameInUserOrder'>" + itemsOrdered[t] +
-                    "</div><input type='text' maxlength='2' class='qntyInput' \n\
-                    name='" + itemsOrdered[t] + "' \n\
-                    id='" + itemsOrdered[t] + "'\n\
-                    value='" + orderAmount[t] + "'/>";
+        var totalItemAmount;
 
+        for (var t = 0; t < itemsOrdered.length; t++) {
+            totalItemAmount = (parseFloat(menuItemPrice[t + 1]) * orderAmount[t]).toFixed(2);
+            displayText = displayText + "<br>" +
+                    "<div class='orderItemWrapper'>" +
+                    "<div class='removeItem'></div>" +
+                    "<input type='text' readonly='true' class='itemNameInUserOrder'" +
+                    " value='" + itemsOrdered[t] +
+                    "' name='itemName" + t +
+                    "'/>" +
+                    "<div class='menuPrice'>" +
+                    menuItemPrice[t + 1] +
+                    "</div>" +
+                    "<input type='text' maxlength='2' class='qntyInput'" +
+                    "name='quantity" + t + "'" +
+                    "id='" + itemsOrdered[t] + "'" +
+                    "value='" + orderAmount[t] + "'/>" +
+                    "<input type='text' readonly='true' class='totalItemPrice'" +
+                    "name='totalOwedPerItem" + t +
+                    "' value='" + totalItemAmount + "'></div>" +
+                    "</div>";
+  
         }
         $('#orderMenuForm').append(displayText);
         $('#orderMenuForm').append("<input type='submit' id='submitMenu' value='Order'/>");
+        $('#orderMenuForm').append("<input type ='hidden' name = 'amountOfItems' value ='" + (itemsOrdered.length-1) + "'/>");
+
     });
 
     //listens for remove item click
