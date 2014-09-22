@@ -45,4 +45,39 @@
         <param-value>OrderConfirmation.jsp</param-value>
     </context-param>
     
+     <context-param>
+        <param-name>loginPage</param-name>
+        <param-value>login.jsp</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>admin</param-name>
+        <param-value>admin.jsp</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>name</param-name>
+        <param-value>admin</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>photos</param-name>
+        <param-value>admin</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>imagePath</param-name>
+        <param-value>images/</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>key</param-name>
+        <param-value>A665A</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>door</param-name>
+        <param-value>A665A</param-value>
+    </context-param>
+    
 </web-app>

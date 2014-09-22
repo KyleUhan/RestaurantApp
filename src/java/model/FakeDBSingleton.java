@@ -8,8 +8,7 @@ public class FakeDBSingleton {
 
     private static DataAccessStrategy fakeDB = null;
 
-    public FakeDBSingleton() {
-    }
+    public FakeDBSingleton() {}
 
     public static DataAccessStrategy getNewInstance() {
         if (fakeDB == null) {

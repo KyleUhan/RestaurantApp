@@ -50,17 +50,17 @@
             var menuItemName = '<%=menuName%>'.split(",");
             var menuItemDescription = '<%=menuDescription%>'.split(",");
             var menuItemPrice = '<%=menuPrice%>'.split(",");
-
+            
         </script>
     </head>
     <body>
         <img src='<%out.print(getServletContext().getInitParameter("background"));%>' id="bg" alt="">
         <header>
-            <h1> - <% out.print(getServletContext().getInitParameter("title")); %> -</h1>
-            <div id='loginWrapper'>
+            <a href='index.jsp'><h1> - <% out.print(getServletContext().getInitParameter("title")); %> -</h1></a>
+            <form id='loginWrapper' name='loginWrapper' method='post' action='MainController?command=login'>
                 <span id='userName'></span>
-                <span id='login'><% out.print(getServletContext().getInitParameter("login"));%></span>
-            </div>
+                <input type='submit' id='login' value='<% out.print(getServletContext().getInitParameter("login"));%>'></input>
+            </form>
         </header>
         <div id='menuDisplay'>
             <img id='pictureLeft' class='menuOption' src="">

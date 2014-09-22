@@ -93,6 +93,10 @@ public class DataAccessService {
         }
         return selectedItem;
     }
+    
+    public void clearAllItems(){
+        getAccessStrategy().clearAllData();
+    }
 
     public final DataAccessStrategy getAccessStrategy() {
         return accessStrategy;

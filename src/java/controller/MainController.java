@@ -40,24 +40,33 @@ public class MainController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(true);
 
         String redirectPage = "";
         RequestDispatcher view;
+        DataAccessService accessService;
 
-        String loadMenu = request.getParameter("command");
+        String command = request.getParameter("command");
 
-        switch (loadMenu) {
+        switch (command) {
             case "getMenuItems":
                 redirectPage = getServletContext().getInitParameter("index");
                 //DataAccessStrategy fakeDB = FakeDBSingleton.getNewInstance();
                 //DataAccessService accessService = new DataAccessService(fakeDB);
-                
-                String dbUsed = getServletContext().getInitParameter("dataAccess");
 
-                DataAccessService accessService = new DataAccessService(dbUsed);
+                String dbUsed = getServletContext().getInitParameter("dataAccess");
+                Object db = session.getAttribute("dbUsed");
+                
+                if (db == null) {
+                    accessService = new DataAccessService(dbUsed);
+                } else {
+                    accessService = (DataAccessService) db;
+                }
+
                 List<MenuItem> menuItems = accessService.getAllMenuItems();
 
+                session.setAttribute("dbUsed", accessService);
+                //request.setAttribute("dbUsed", accessService);
                 request.setAttribute("menuItems", menuItems);
 
                 break;
@@ -103,6 +112,32 @@ public class MainController extends HttpServlet {
                 break;
             case "sendToMenu":
                 redirectPage = getServletContext().getInitParameter("index");
+                break;
+            case "login":
+                redirectPage = getServletContext().getInitParameter("loginPage");
+                
+//                String key = getServletContext().getInitParameter("key");
+//                session.setAttribute("key", key);
+//                
+//                String un = request.getParameter("userName");
+//                String up = request.getParameter("userPass");
+//                if (un == null) {
+//                    un = "";
+//                }
+//                if (up == null) {
+//                    up = "";
+//                }
+//                if (un.equals(getServletContext().getInitParameter("name")) && up.equals(getServletContext().getInitParameter("photos"))) {
+//                    redirectPage = getServletContext().getInitParameter("admin");
+//                    key = getServletContext().getInitParameter("key");
+//                    
+//                      // session.setAttribute("menuItems", null);
+//                    session.setAttribute("sessionPass", session);
+//                }
+                break;
+            case "admin":
+
+                redirectPage = getServletContext().getInitParameter("admin");
                 break;
             default:
                 redirectPage = "";

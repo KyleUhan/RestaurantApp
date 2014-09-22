@@ -35,7 +35,7 @@ public class FakeDB implements DataAccessStrategy {
         if (mi == null) {
             throw new IllegalArgumentException(NOT_FOUND);
         }
-        getDb().add(mi);
+        getDb().add(getDb().size()-1, mi);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class FakeDB implements DataAccessStrategy {
             throw new IllegalArgumentException(NOT_FOUND);
         }
         for (int i = 0; i < getDb().size(); i++) {
-            if (mi.getItemName().equals(getDb().get(i).getItemName())) {
+            if (mi.getId().equals(getDb().get(i).getId())) {
                 getDb().remove(i);
             }
         }
@@ -85,7 +85,7 @@ public class FakeDB implements DataAccessStrategy {
         getDb().clear();
     }
 
-    public List<MenuItem> getDb() {
+    public final List<MenuItem> getDb() {
         return db;
     }
 

@@ -50,8 +50,6 @@ $(function () {
     }
 
     function switchDetails() {
-
-
         $('#detailsTitle').text(menuItemName[menuOptionSpot[1]]);
         $('#detailsDescription').text(menuItemDescription[menuOptionSpot[1]]);
         $('#detailsPrice').text("$" + menuItemPrice[menuOptionSpot[1]]);
@@ -69,7 +67,11 @@ $(function () {
 
 //HANDLES ADD TO ORDER MENU---------------------------------------------------
     var itemsOrdered = [];
-    var orderAmount = [1, 1, 1, 1, 1];
+    //var orderAmount = [1, 1, 1, 1, 1];
+    var orderAmount = [];
+    for(var i = 0; i < menuOptionPics.length - 2;i++){
+        orderAmount[i] = 1;
+    }
     $('#addToListButton').click(function () {
         var item = menuItemName[menuOptionSpot[1]];
         var repeatItem = false;
