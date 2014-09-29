@@ -17,11 +17,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.DataAccessService;
-import model.DataAccessStrategy;
-import model.FakeDB;
 import model.FakeDBSingleton;
 import model.MenuItem;
+import model.MenuItemDAO;
+import model.MySQLDB;
+import model.RestaurantService;
 
 /**
  *
@@ -45,25 +45,23 @@ public class AdminController extends HttpServlet {
         HttpSession session = request.getSession(true);
         RequestDispatcher view;
         String command = request.getParameter("adminCommand");
+        RestaurantService service;
 
-        List<MenuItem> all = new ArrayList<>();
+        List<MenuItem> allData;
         String responseDisplay = "";
 
-        DataAccessService db;
-        Object obj = session.getAttribute("dbUsed");
+        if (session.getAttribute("service") == null) {
+            service = new RestaurantService(new MenuItemDAO(new MySQLDB()));
+        } else {
+            service = (RestaurantService) session.getAttribute("service");
+        }
         //  request.setAttribute("keyValid", key1);
         // if (key != null && key1.equals(getServletContext().getInitParameter("door"))) {
 
-        if (obj != null) {
-            db = (DataAccessService) obj;
-        } else {
-            String dbUsed = getServletContext().getInitParameter("dataAccess");
-            db = new DataAccessService(dbUsed);
-        }
         //DataAccessStrategy db = FakeDBSingleton.getNewInstance();
         Integer itemId;
         String itemName;
-        MenuItem item = null;
+        MenuItem item;
         switch (command) {
             case "addItem":
                 item = new MenuItem();
@@ -79,33 +77,17 @@ public class AdminController extends HttpServlet {
                 item.setItemCalories(itemCalories);
                 item.setItemDescription(itemDescription);
                 item.setItemPicture(itemImage);
-
-                db.addMenuItem(item);
+                service.addMenuItem(item);
                 responseDisplay = "Item added. ID: " + item.getId();
-
                 break;
             case "removeItem":
-                MenuItem remvItem = new MenuItem();
-                itemName = request.getParameter("itemName");
                 itemId = Integer.parseInt(request.getParameter("itemId"));
-                for (MenuItem mi : db.getAllMenuItems()) {
-                    if (itemId.equals(mi.getId())) {
-                        remvItem = mi;
-                    }
-                }
-
-                responseDisplay = "Item removed. - " + remvItem.getItemName();
-                db.removeMenuItem(remvItem);
+                service.removeMenuItem(itemId);
+                responseDisplay = "Item removed.";
                 break;
             case "updateItem":
-                MenuItem updateItemOld = new MenuItem();
-                MenuItem updateItemNew = new MenuItem();
+                item = new MenuItem();
                 itemId = Integer.parseInt(request.getParameter("itemId"));
-                for (MenuItem mi : db.getAllMenuItems()) {
-                    if (itemId.equals(mi.getId())) {
-                        updateItemOld = mi;
-                    }
-                }
 
                 String itemNameUpdate = request.getParameter("itemNameUpdate");
                 String itemPriceUpdate = request.getParameter("itemPriceUpdate");
@@ -114,81 +96,31 @@ public class AdminController extends HttpServlet {
                 String itemImageUpdate = request.getParameter("itemImageUpdate");
                 itemImageUpdate = request.getServletContext().getInitParameter("imagePath") + itemImageUpdate;
 
-                updateItemNew.setItemName(itemNameUpdate);
-                updateItemNew.setItemPrice(itemPriceUpdate);
-                updateItemNew.setItemCalories(itemCaloriesUpdate);
-                updateItemNew.setItemDescription(itemDescriptionUpdate);
-                updateItemNew.setItemPicture(itemImageUpdate);
+                item.setItemName(itemNameUpdate);
+                item.setItemPrice(itemPriceUpdate);
+                item.setItemCalories(itemCaloriesUpdate);
+                item.setItemDescription(itemDescriptionUpdate);
+                item.setItemPicture(itemImageUpdate);
 
-                db.updateMenuItem(updateItemOld, updateItemNew);
+                service.updateMenuItem(itemId, item);
                 break;
             case "showAll":
-                all = db.getAllMenuItems();
-                request.setAttribute("dbContent", all);
+             /*   allData = service.getAllMenuItems();
+                request.setAttribute("dbContent", allData);*/
                 responseDisplay = "List of all db items.";
                 break;
             case "clearAll":
-                db.clearAllItems();
-                String dbUsed = getServletContext().getInitParameter("dataAccess");
-                db = new DataAccessService(dbUsed);
+                service.clearAllMenuItem();
                 responseDisplay = "Items cleared.";
                 break;
             default:
         }
-            //To quick clear data use below
-        //db.clearAllItems();
 
-        // LinkedHashMap<Integer, LinkedHashMap<String, MenuItem>> allMap = db.getAllMenuItemsMap();
         request.setAttribute("responseDisplay", responseDisplay);
-        session.setAttribute("dbUsed", db);
-        // all = db.getAllMenuItems();
-        //  request.getSession().setAttribute("dbContent", all);
-        //   request.getSession().setAttribute("dbMap", all);
-        //  }
 
         view = request.getRequestDispatcher("/admin.jsp");
         view.forward(request, response);
-        //response.sendRedirect("admin.jsp");
 
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

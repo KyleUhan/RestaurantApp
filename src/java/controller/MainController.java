@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.CalculateOrderTotal;
-import model.DataAccessService;
 import model.MenuItem;
 import model.MenuItemDAO;
 import model.MockDB;
@@ -46,7 +45,7 @@ public class MainController extends HttpServlet {
 
         String redirectPage = "";
         RequestDispatcher view;
-      //  DataAccessService accessService;
+        //  DataAccessService accessService;
         RestaurantService service;
 
         String command = request.getParameter("command");
@@ -54,10 +53,14 @@ public class MainController extends HttpServlet {
         switch (command) {
             case "getMenuItems":
                 redirectPage = getServletContext().getInitParameter("index");
+                
+                if (session.getAttribute("service") == null) {
+                    service = new RestaurantService(new MenuItemDAO(new MySQLDB()));
+                } else {
+                    service = (RestaurantService)session.getAttribute("service");
+                }
 
-                service = new RestaurantService(new MenuItemDAO(new MySQLDB()));
-
-               /* service.addMenuItem(new MenuItem("", "", "", "", "images/fillerItemFadeL.png"));
+              /*  service.addMenuItem(new MenuItem("", "", "", "", "images/fillerItemFadeL.png"));
                 service.addMenuItem(new MenuItem("IMPORTED COFFEE", "2.99", "100", "Fine imported coffee. Molto Bene!", "images/coffee2.png"));
                 service.addMenuItem(new MenuItem("LATTE", "3.49", "210", "Thanks a Latte...", "images/coffee3.jpg"));
                 service.addMenuItem(new MenuItem("HOUSE COFFEE", "1.99", "65", "Our famous home made coffee!", "images/coffeeSized.jpg"));
@@ -65,8 +68,11 @@ public class MainController extends HttpServlet {
                 service.addMenuItem(new MenuItem("MUFFIN", "3.55", "225", "These muffins are out of control.", "images/muffinSized.jpg"));
                 service.addMenuItem(new MenuItem("", "", "", "", "images/fillerItemFadeR.png"));*/
 
+               // service.updateMenuItem(2,new MenuItem("CROSSANT", "2.44", "500", "Buttery", "images/croissantSized.jpg"));
+                // service.clearAllMenuItem();
                 List<MenuItem> menuItems = service.getAllMenuItems();
                 request.setAttribute("menuItems", menuItems);
+                session.setAttribute("service", service);
 
                 break;
             case "orderReady":

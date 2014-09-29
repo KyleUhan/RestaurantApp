@@ -28,8 +28,11 @@ CREATE TABLE `menu_item` (
   `menu_item_id` int(11) NOT NULL AUTO_INCREMENT,
   `menu_item_name` varchar(75) DEFAULT NULL,
   `menu_item_price` decimal(5,2) DEFAULT '0.00',
+  `menu_item_calorie` decimal(5,2) DEFAULT NULL,
+  `menu_item_description` varchar(500) DEFAULT NULL,
+  `menu_item_picture` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`menu_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +41,7 @@ CREATE TABLE `menu_item` (
 
 LOCK TABLES `menu_item` WRITE;
 /*!40000 ALTER TABLE `menu_item` DISABLE KEYS */;
-INSERT INTO `menu_item` VALUES (1,'Coffee',1.29),(2,'Coffee2',2.45);
+INSERT INTO `menu_item` VALUES (1,'',0.00,0.00,NULL,'images/fillerItemFadeL.png'),(2,'IMPORTED COFFEE',2.99,100.00,'Fine imported coffee. Molto Bene!','images/coffee2.png'),(3,'LATTE',3.49,210.00,'Thanks a Latte...','images/coffee3.jpg'),(4,'HOUSE COFFEE',1.99,65.00,'Our famous home made coffee!','images/coffeeSized.jpg'),(5,'DESSERT COFFEE',3.95,480.00,'Calorie counters go away.','images/coffee5.jpg'),(6,'MUFFIN',3.55,225.00,'These muffins are out of control.','images/muffinSized.jpg'),(7,NULL,0.00,0.00,NULL,'images/fillerItemFadeR.png');
 /*!40000 ALTER TABLE `menu_item` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-09-24 20:14:19
+-- Dump completed on 2014-09-28 23:06:18

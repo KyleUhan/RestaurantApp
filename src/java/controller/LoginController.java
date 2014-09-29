@@ -34,7 +34,6 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        
         RequestDispatcher view;
         String redirectPage = "";
         String command = request.getParameter("action");
@@ -52,10 +51,7 @@ public class LoginController extends HttpServlet {
                     up = "";
                 }
                 if (un.equals(getServletContext().getInitParameter("name")) && up.equals(getServletContext().getInitParameter("photos"))) {
-
                     redirectPage = getServletContext().getInitParameter("admin");
-
-                    // session.setAttribute("menuItems", null);
                 } else {
                     redirectPage = getServletContext().getInitParameter("loginPage");
                 }

@@ -4,7 +4,6 @@
     Author     : Kyle
 --%>
 
-<%@page import="model.DataAccessService"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,15 +17,7 @@
         <title>Login</title>
         <%
 
-            Object obj = request.getAttribute("passTrue");
-            Object db = request.getSession().getAttribute("dbUsed");
-
-            if (obj == null) {
-                response.sendRedirect("LoginController?action=login");
-            } else {
-                DataAccessService t = (DataAccessService) db;
-                out.print(t.toString());
-            }
+            
         %>
         <style>
             #loginForm{
