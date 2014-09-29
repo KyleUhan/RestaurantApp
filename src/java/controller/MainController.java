@@ -17,9 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.CalculateOrderTotal;
 import model.DataAccessService;
-import model.DataAccessStrategy;
-import model.FakeDBSingleton;
 import model.MenuItem;
+import model.MenuItemDAO;
+import model.MockDB;
+import model.MySQLDB;
+import model.RestaurantService;
 
 /**
  *
@@ -44,29 +46,26 @@ public class MainController extends HttpServlet {
 
         String redirectPage = "";
         RequestDispatcher view;
-        DataAccessService accessService;
+      //  DataAccessService accessService;
+        RestaurantService service;
 
         String command = request.getParameter("command");
 
         switch (command) {
             case "getMenuItems":
                 redirectPage = getServletContext().getInitParameter("index");
-                //DataAccessStrategy fakeDB = FakeDBSingleton.getNewInstance();
-                //DataAccessService accessService = new DataAccessService(fakeDB);
 
-                String dbUsed = getServletContext().getInitParameter("dataAccess");
-                Object db = session.getAttribute("dbUsed");
-                
-                if (db == null) {
-                    accessService = new DataAccessService(dbUsed);
-                } else {
-                    accessService = (DataAccessService) db;
-                }
+                service = new RestaurantService(new MenuItemDAO(new MySQLDB()));
 
-                List<MenuItem> menuItems = accessService.getAllMenuItems();
+               /* service.addMenuItem(new MenuItem("", "", "", "", "images/fillerItemFadeL.png"));
+                service.addMenuItem(new MenuItem("IMPORTED COFFEE", "2.99", "100", "Fine imported coffee. Molto Bene!", "images/coffee2.png"));
+                service.addMenuItem(new MenuItem("LATTE", "3.49", "210", "Thanks a Latte...", "images/coffee3.jpg"));
+                service.addMenuItem(new MenuItem("HOUSE COFFEE", "1.99", "65", "Our famous home made coffee!", "images/coffeeSized.jpg"));
+                service.addMenuItem(new MenuItem("DESSERT COFFEE", "3.95", "480", "Calorie counters go away.", "images/coffee5.jpg"));
+                service.addMenuItem(new MenuItem("MUFFIN", "3.55", "225", "These muffins are out of control.", "images/muffinSized.jpg"));
+                service.addMenuItem(new MenuItem("", "", "", "", "images/fillerItemFadeR.png"));*/
 
-                session.setAttribute("dbUsed", accessService);
-                //request.setAttribute("dbUsed", accessService);
+                List<MenuItem> menuItems = service.getAllMenuItems();
                 request.setAttribute("menuItems", menuItems);
 
                 break;
@@ -115,28 +114,8 @@ public class MainController extends HttpServlet {
                 break;
             case "login":
                 redirectPage = getServletContext().getInitParameter("loginPage");
-                
-//                String key = getServletContext().getInitParameter("key");
-//                session.setAttribute("key", key);
-//                
-//                String un = request.getParameter("userName");
-//                String up = request.getParameter("userPass");
-//                if (un == null) {
-//                    un = "";
-//                }
-//                if (up == null) {
-//                    up = "";
-//                }
-//                if (un.equals(getServletContext().getInitParameter("name")) && up.equals(getServletContext().getInitParameter("photos"))) {
-//                    redirectPage = getServletContext().getInitParameter("admin");
-//                    key = getServletContext().getInitParameter("key");
-//                    
-//                      // session.setAttribute("menuItems", null);
-//                    session.setAttribute("sessionPass", session);
-//                }
                 break;
             case "admin":
-
                 redirectPage = getServletContext().getInitParameter("admin");
                 break;
             default:

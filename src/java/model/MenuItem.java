@@ -15,8 +15,8 @@ public class MenuItem {
     private static int id_manager = 0;
     private Integer id;
     private String itemName = "";
-    private double itemPrice = 0.0;
-    private double itemCalories = 0.0;
+    private Double itemPrice = 0.0;
+    private Double itemCalories = 0.0;
     private String itemDescription = "";
     private String itemPicture = "";
 
@@ -48,7 +48,7 @@ public class MenuItem {
         this.itemName = itemName;
     }
 
-    public final double getItemPrice() {
+    public final Double getItemPrice() {
         return itemPrice;
     }
 
@@ -59,7 +59,7 @@ public class MenuItem {
         this.itemPrice = Double.parseDouble(itemPrice);
     }
 
-    public final double getItemCalories() {
+    public final Double getItemCalories() {
         return itemCalories;
     }
 

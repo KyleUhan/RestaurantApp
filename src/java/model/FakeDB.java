@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -12,14 +13,17 @@ public class FakeDB implements DataAccessStrategy {
 
     private static final String NOT_FOUND = "Menu Item not recognized";
     private List<MenuItem> db;
+    private List<Map<String,Object>> db2;
 
     public FakeDB() {
         setDb(new ArrayList<>());
-       
+        Map<String,Object> data = new LinkedHashMap<>();
+        
+        
         getDb().add(new MenuItem("","","","","images/fillerItemFadeL.png"));
         getDb().add(new MenuItem("IMPORTED COFFEE","2.99","100","Fine imported coffee. Molto Bene!"
         ,"images/coffee2.png"));
-        getDb().add(new MenuItem("LATTE","3.49","210","Thanks a Latte.."
+        getDb().add(new MenuItem("LATTE","3.49","210","Thanks a Latte..."
         ,"images/coffee3.jpg"));
         getDb().add(new MenuItem("HOUSE COFFEE","1.99","65","Our famous home made coffee!"
         ,"images/coffeeSized.jpg"));
@@ -28,6 +32,9 @@ public class FakeDB implements DataAccessStrategy {
         getDb().add(new MenuItem("MUFFIN","3.55","225","These muffins are out of control."
         ,"images/muffinSized.jpg"));
         getDb().add(new MenuItem("","","","","images/fillerItemFadeR.png"));
+        
+       data.put("ItemName", "IMPORTED COFFEE");
+       
     }
 
     @Override
@@ -65,19 +72,19 @@ public class FakeDB implements DataAccessStrategy {
     @Override
     public List<MenuItem> getAllMenuItems() {
         return getDb();
-    }
-    
+    }   
     //
+
     @Override
-    public LinkedHashMap<Integer,LinkedHashMap<String,MenuItem>> getAllMenuItemsMap() {
-        LinkedHashMap<String,MenuItem> itemsInDB = new LinkedHashMap<>();
-        LinkedHashMap<Integer,LinkedHashMap<String,MenuItem>> itemsInDBbyRecord = new LinkedHashMap<>();
-        for(MenuItem mi: getDb()){
-            itemsInDB.put(mi.getItemName(), mi);
-            itemsInDBbyRecord.put(mi.getId(), itemsInDB);
-            itemsInDB = new LinkedHashMap<>();
-        }
-        return itemsInDBbyRecord;
+    public List<Map<String,Object>> getAllMenuItemsMap() {
+       Map<String,Object> infoHolder = new LinkedHashMap<>();
+       List<Map<String,Object>> allData = new ArrayList<>();
+       for(MenuItem mi: getDb()){
+           infoHolder.put(mi.getItemName(), mi);
+           allData.add(infoHolder);
+       }
+        
+       return allData;
     }
     
     @Override
@@ -92,4 +99,14 @@ public class FakeDB implements DataAccessStrategy {
     public final void setDb(List<MenuItem> db) {
         this.db = db;
     }
+
+    public List<Map<String, Object>> getDb2() {
+        return db2;
+    }
+
+    public void setDb2(List<Map<String, Object>> db2) {
+        this.db2 = db2;
+    }
+    
+    
 }

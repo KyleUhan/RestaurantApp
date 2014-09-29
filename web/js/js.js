@@ -69,10 +69,12 @@ $(function () {
     var itemsOrdered = [];
     //var orderAmount = [1, 1, 1, 1, 1];
     var orderAmount = [];
-    for(var i = 0; i < menuOptionPics.length - 2;i++){
+    for (var i = 0; i < menuOptionPics.length - 2; i++) {
         orderAmount[i] = 1;
     }
+
     $('#addToListButton').click(function () {
+
         var item = menuItemName[menuOptionSpot[1]];
         var repeatItem = false;
         for (var i = 0; i < itemsOrdered.length; i++) {
@@ -89,30 +91,33 @@ $(function () {
         var totalItemAmount;
 
         for (var t = 0; t < itemsOrdered.length; t++) {
-            totalItemAmount = (parseFloat(menuItemPrice[t + 1]) * orderAmount[t]).toFixed(2);
-            displayText = displayText + "<br>" +
-                    "<div class='orderItemWrapper'>" +
-                    "<div class='removeItem'></div>" +
-                    "<input type='text' readonly='true' class='itemNameInUserOrder'" +
-                    " value='" + itemsOrdered[t] +
-                    "' name='itemName" + t +
-                    "'/>" +
-                    "<div class='menuPrice'>" +
-                    menuItemPrice[t + 1] +
-                    "</div>" +
-                    "<input type='text' maxlength='2' class='qntyInput'" +
-                    "name='quantity" + t + "'" +
-                    "id='" + itemsOrdered[t] + "'" +
-                    "value='" + orderAmount[t] + "'/>" +
-                    "<input type='text' readonly='true' class='totalItemPrice'" +
-                    "name='totalOwedPerItem" + t +
-                    "' value='" + totalItemAmount + "'></div>" +
-                    "</div>";
-  
-        }
+           
+           
+                totalItemAmount = (parseFloat(menuItemPrice[t + 1]) * orderAmount[t]).toFixed(2);
+                displayText = displayText + "<br>" +
+                        "<div class='orderItemWrapper'>" +
+                        "<div class='removeItem'></div>" +
+                        "<input type='text' readonly='true' class='itemNameInUserOrder'" +
+                        " value='" + itemsOrdered[t] +
+                        "' name='itemName" + t +
+                        "'/>" +
+                        "<div class='menuPrice'>" +
+                        menuItemPrice[t + 1] +
+                        "</div>" +
+                        "<input type='text' maxlength='2' class='qntyInput'" +
+                        "name='quantity" + t + "'" +
+                        "id='" + itemsOrdered[t] + "'" +
+                        "value='" + orderAmount[t] + "'/>" +
+                        "<input type='text' readonly='true' class='totalItemPrice'" +
+                        "name='totalOwedPerItem" + t +
+                        "' value='" + totalItemAmount + "'></div>" +
+                        "</div>";
+
+            }
+        
         $('#orderMenuForm').append(displayText);
         $('#orderMenuForm').append("<input type='submit' id='submitMenu' value='Order'/>");
-        $('#orderMenuForm').append("<input type ='hidden' name = 'amountOfItems' value ='" + (itemsOrdered.length-1) + "'/>");
+        $('#orderMenuForm').append("<input type ='hidden' name = 'amountOfItems' value ='" + (itemsOrdered.length - 1) + "'/>");
 
     });
 

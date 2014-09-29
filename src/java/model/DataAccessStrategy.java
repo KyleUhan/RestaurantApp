@@ -6,11 +6,11 @@
 
 package model;
 
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
- *
+ * OLD FILE
  * @author Kyle Uhan
  */
 public interface DataAccessStrategy {
@@ -20,6 +20,7 @@ public interface DataAccessStrategy {
     public void updateMenuItem(MenuItem oldItem, MenuItem newItem);
     public void clearAllData();
     public List<MenuItem> getAllMenuItems();
-    public LinkedHashMap<Integer,LinkedHashMap<String,MenuItem>> getAllMenuItemsMap();
+    //public LinkedHashMap<Integer,LinkedHashMap<String,MenuItem>> getAllMenuItemsMap();
+    public List<Map<String,Object>> getAllMenuItemsMap();
     
 }
