@@ -22,11 +22,9 @@ public class CalculateOrderTotal {
     public CalculateOrderTotal(double tax) {
         setTax(tax);
     }
-    
-    
-    
-    public String calculateTotal(List<String> eachItem){
-        Double tax;
+ 
+    public final String calculateTotal(List<String> eachItem){
+        Double taxTotal;
         NumberFormat nf = NumberFormat.getCurrencyInstance();
         if(eachItem == null){
             eachItem = new ArrayList<>();
@@ -35,21 +33,21 @@ public class CalculateOrderTotal {
         for(String item: eachItem){
             total = total + Double.parseDouble(item);
         }
-        tax = (total * getTax());
-        setAdjustedTax(nf.format(tax));
-        total = total + tax;
+        taxTotal = (total * getTax());
+        setAdjustedTax(nf.format(taxTotal));
+        total = total + taxTotal;
         return nf.format(total);
     }
 
-    public double getTax() {
+    public final double getTax() {
         return tax;
     }
 
-    public void setTax(double tax) {
+    public final void setTax(final double tax) {
         this.tax = tax;
     }
 
-    public String getAdjustedTax() {
+    public final String getAdjustedTax() {
         return adjustedTax;
     }
 

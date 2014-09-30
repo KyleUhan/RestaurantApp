@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Kyle Uhan
  */
-public interface RestaurantDAOStrategy {
+public interface MenuItemDAOStrategy {
     
     public abstract List<MenuItem> getAllMenuItems();
 

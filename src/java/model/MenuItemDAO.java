@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author Kyle Uhan
  */
-public class MenuItemDAO implements RestaurantDAOStrategy {
+public class MenuItemDAO implements MenuItemDAOStrategy {
 
     private final String UNABLE_TO_LOCATE = "Unable to locate database.";
 
@@ -54,24 +54,24 @@ public class MenuItemDAO implements RestaurantDAOStrategy {
     }
 
     @Override
-    public void addMenuItem(MenuItem mi) {
+    public void addMenuItem(final MenuItem mi) {
         Map menuItem = convertToMap(mi);
         getDb().createRecord(menuItem);
     }
 
     @Override
-    public Object getMenuItem(int id) {
+    public Object getMenuItem(final int id) {
         return getDb().getRecord(id);
     }
 
     @Override
-    public void updateMenuItem(int id, MenuItem mi) {
+    public void updateMenuItem(final int id, final MenuItem mi) {
         Map menuItem = convertToMap(mi);
         getDb().updateRecord(id, menuItem);
     }
 
     @Override
-    public void removeMenuItem(int id) {
+    public void removeMenuItem(final int id) {
         getDb().removeRecord(id);
     }
 

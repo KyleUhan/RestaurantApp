@@ -15,7 +15,7 @@ import java.util.Map;
  *
  * @author Kyle Uhan
  */
-public class MockDB implements DataBaseAccessStrategy {
+public class MemoryMockDB implements DataBaseAccessStrategy {
 
     private final String UNABLE_TO_LOCATE = "Unable to locate database";
     private final String ITEM_NOT_EXIST = "Item id does not exist.";
@@ -24,11 +24,11 @@ public class MockDB implements DataBaseAccessStrategy {
 
     List<Map> db;
 
-    public MockDB() {
+    public MemoryMockDB() {
         setDb(new ArrayList<>());
     }
 
-    public MockDB(List<Map> dbContent) {
+    public MemoryMockDB(List<Map> dbContent) {
         setDb(dbContent);
     }
 
@@ -60,12 +60,12 @@ public class MockDB implements DataBaseAccessStrategy {
 
     @Override
     public Object getRecord(int id) throws IllegalArgumentException {
-        List<Integer> idList = new ArrayList();
+       // List<Integer> idList = new ArrayList();
         Integer mapId;
         boolean itemNotExist = true;
         for (int i = 0; i < getDb().size(); i++) {
             mapId = (Integer) getDb().get(i).get(ID);
-            idList.add(mapId);
+            //idList.add(mapId);
             if (mapId.equals(id)) {
                 id = i;
                 itemNotExist = false;

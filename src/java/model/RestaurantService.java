@@ -17,20 +17,20 @@ public class RestaurantService {
     
     private final String DAO_NULL = "Unknown DAO Strategy";
 
-    RestaurantDAOStrategy daoStrategy;
+    MenuItemDAOStrategy daoStrategy;
 
     public RestaurantService() {
     }
 
-    public RestaurantService(RestaurantDAOStrategy daoStrategy) {
+    public RestaurantService(MenuItemDAOStrategy daoStrategy) {
         setDaoStrategy(daoStrategy);
     }
 
-    public RestaurantDAOStrategy getDaoStrategy() {
+    public MenuItemDAOStrategy getDaoStrategy() {
         return daoStrategy;
     }
 
-    public final void setDaoStrategy(RestaurantDAOStrategy daoStrategy) throws IllegalArgumentException {
+    public final void setDaoStrategy(MenuItemDAOStrategy daoStrategy) throws IllegalArgumentException {
         if (daoStrategy == null) {
             throw new IllegalArgumentException(DAO_NULL);
         }
@@ -63,7 +63,7 @@ public class RestaurantService {
 
 
     public static void main(String[] args) {
-        RestaurantService menu = new RestaurantService(new MenuItemDAO(new MockDB()));
+        RestaurantService menu = new RestaurantService(new MenuItemDAO(new MemoryMockDB()));
 
         menu.addMenuItem(new MenuItem("", "", "", "", "images/fillerItemFadeL.png"));
         menu.addMenuItem(new MenuItem("IMPORTED COFFEE", "2.99", "100", "Fine imported coffee. Molto Bene!", "images/coffee2.png"));

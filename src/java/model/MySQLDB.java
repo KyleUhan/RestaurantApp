@@ -23,6 +23,7 @@ import java.util.Map;
  */
 public class MySQLDB implements DataBaseAccessStrategy {
 
+    public final Integer COL_ID_POSITION = 1;
     private Connection conn;
     private String driverClassName;
     private String url;
@@ -31,21 +32,31 @@ public class MySQLDB implements DataBaseAccessStrategy {
     private Statement stmt;
     private ResultSet rs;
     private String sql;
+    private String tableName;
+
+    public MySQLDB() {
+        //DEFAULT VALUES FOR TESTING
+        setTableName("menu_Item");
+        setDriverClassName("com.mysql.jdbc.Driver");
+        setUrl("jdbc:mysql://localhost:3306/" + getTableName());
+        setUserName("root");
+        setPassword("root");
+    }
 
     public void openConnection() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/restaurant", "root", "root");
-            stmt = conn.createStatement();
+            Class.forName(getDriverClassName());
+            setConn(DriverManager.getConnection(getUrl(), getUserName(), getPassword()));
+            setStmt(getConn().createStatement());
         } catch (ClassNotFoundException | SQLException ex) {
         }
     }
 
     public void closeConnection() {
         try {
-            stmt.close();
-            conn.close();
-            rs.close();
+            getStmt().close();
+            getConn().close();
+            getRs().close();
         } catch (Exception e) {
         }
     }
@@ -54,15 +65,15 @@ public class MySQLDB implements DataBaseAccessStrategy {
     public List<Map> getAllData() {
         List<Map> data = new ArrayList<>();
         Map dataMap;
-        sql = "SELECT * FROM menu_Item";
+        setSql("SELECT * FROM " + getTableName());
         try {
             openConnection();
-            rs = stmt.executeQuery(sql);
-            ResultSetMetaData rsmd = rs.getMetaData();
-            while (rs.next()) {
+            setRs(getStmt().executeQuery(getSql()));
+            ResultSetMetaData rsmd = getRs().getMetaData();
+            while (getRs().next()) {
                 dataMap = new LinkedHashMap();
                 for (int i = 1; i < rsmd.getColumnCount() + 1; i++) {
-                    dataMap.put(rsmd.getColumnName(i), rs.getString(i));
+                    dataMap.put(rsmd.getColumnName(i), getRs().getString(i));
                 }
                 data.add(dataMap);
             }
@@ -77,8 +88,8 @@ public class MySQLDB implements DataBaseAccessStrategy {
     public void clearAllData() {
         try {
             openConnection();
-            sql = "TRUNCATE TABLE menu_Item";
-            stmt.executeUpdate(sql);
+            setSql("TRUNCATE TABLE " + getTableName());
+            getStmt().executeUpdate(getSql());
         } catch (Exception e) {
         } finally {
             closeConnection();
@@ -87,22 +98,22 @@ public class MySQLDB implements DataBaseAccessStrategy {
 
     @Override
     public void createRecord(Map record) {
-        sql = "SELECT * FROM menu_Item";
+        setSql("SELECT * FROM " + getTableName());
         try {
             openConnection();
             Object[] key = record.keySet().toArray();
             List<Object> values = new ArrayList<>();
-            for (int p = 0; p < key.length; p++) {
-                values.add(record.get(key[p]));
+            for (Object key1 : key) {
+                values.add(record.get(key1));
             }
-            rs = stmt.executeQuery(sql);
-            ResultSetMetaData rsmd = rs.getMetaData();
+            setRs(getStmt().executeQuery(getSql()));
+            ResultSetMetaData rsmd = getRs().getMetaData();
             List<String> cols = new ArrayList<>();
             for (int t = 1; t < rsmd.getColumnCount() + 1; t++) {
                 cols.add(rsmd.getColumnName(t));
             }
 
-            StringBuilder sb = new StringBuilder("INSERT INTO menu_Item (");
+            StringBuilder sb = new StringBuilder("INSERT INTO " + getTableName() + " (");
             for (int y = 1; y < values.size(); y++) {
                 if (y == (values.size() - 1)) {
                     sb.append(cols.get(y)).append(") VALUES (");
@@ -126,8 +137,8 @@ public class MySQLDB implements DataBaseAccessStrategy {
                 }
             }
             sb.append(")");
-            sql = sb.toString();
-            stmt.executeUpdate(sql);
+            setSql(sb.toString());
+            getStmt().executeUpdate(getSql());
         } catch (Exception e) {
         } finally {
             closeConnection();
@@ -137,40 +148,34 @@ public class MySQLDB implements DataBaseAccessStrategy {
     @Override
     public Object getRecord(int id) {
         Integer itemId = id;
-        openConnection();
         Map dataMap = new LinkedHashMap();
-        try {
-            List<Map> data = getAllData();
-            for (Map record : data) {
-                Object key = record.keySet().toArray()[0];
-                if (record.get(key).toString().equals(itemId.toString())) {
-                    dataMap = record;
-                }
+        List<Map> data = getAllData();
+        for (Map record : data) {
+            Object key = record.keySet().toArray()[0];
+            if (record.get(key).toString().equals(itemId.toString())) {
+                dataMap = record;
             }
-        } catch (Exception e) {
-        } finally {
-            closeConnection();
         }
         return dataMap;
     }
 
     @Override
     public void updateRecord(int id, Map record) {
-        sql = "SELECT * FROM menu_Item";
+        setSql("SELECT * FROM " + getTableName());
         try {
             openConnection();
-            rs = stmt.executeQuery(sql);
-            ResultSetMetaData rsmd = rs.getMetaData();
+            setRs(getStmt().executeQuery(getSql()));
+            ResultSetMetaData rsmd = getRs().getMetaData();
             List<String> cols = new ArrayList<>();
             for (int t = 1; t < rsmd.getColumnCount() + 1; t++) {
                 cols.add(rsmd.getColumnName(t));
             }
             Object[] key = record.keySet().toArray();
             List<Object> values = new ArrayList<>();
-            for (int p = 0; p < key.length; p++) {
-                values.add(record.get(key[p]));
+            for (Object key1 : key) {
+                values.add(record.get(key1));
             }
-            StringBuilder sb = new StringBuilder("UPDATE menu_item SET ");
+            StringBuilder sb = new StringBuilder("UPDATE " + getTableName() + " SET ");
             for (int y = 1; y < values.size(); y++) {
                 if (y == (values.size() - 1)) {
                     sb.append(cols.get(y)).append(" = ").append("'").append(values.get(y)).append("'").append(" ");
@@ -183,11 +188,9 @@ public class MySQLDB implements DataBaseAccessStrategy {
                 }
             }
             sb.append("WHERE ").append(cols.get(0)).append(" = ").append(id);
-            System.out.println(sb.toString());
-            sql = sb.toString();
-            stmt.executeUpdate(sql);
+            setSql(sb.toString());
+            getStmt().executeUpdate(getSql());
         } catch (Exception e) {
-
         } finally {
             closeConnection();
         }
@@ -195,39 +198,108 @@ public class MySQLDB implements DataBaseAccessStrategy {
 
     @Override
     public void removeRecord(int id) {
-        sql = "SELECT * FROM menu_Item";
+        setSql("SELECT * FROM " + getTableName());
         try {
             openConnection();
-            rs = stmt.executeQuery(sql);
-            ResultSetMetaData rsmd = rs.getMetaData();
-            String keyName = rsmd.getColumnName(1);
-            StringBuilder sb = new StringBuilder("DELETE FROM menu_item WHERE ");
+            setRs(getStmt().executeQuery(getSql()));
+            ResultSetMetaData rsmd = getRs().getMetaData();
+            String keyName = rsmd.getColumnName(COL_ID_POSITION);
+            StringBuilder sb = new StringBuilder("DELETE FROM " + getTableName() + " WHERE ");
             sb.append(keyName).append(" = ").append(id);
-            stmt.executeUpdate(sb.toString());
+            getStmt().executeUpdate(sb.toString());
         } catch (Exception e) {
         } finally {
             closeConnection();
         }
     }
 
-    public void setSql(String sql) {
+    // GETTERS/SETTERS
+    public final void setSql(String sql) {
         this.sql = sql;
     }
 
-    public static void main(String[] args) {
-        MenuItem mi = new MenuItem("CROSSANT", "2.44", "500", "Buttery goodness", "images/croissantSized.jpg");
-        Map convertedMenuItem = new LinkedHashMap<>();
-        //change id to static db pk auto incr.
-        convertedMenuItem.put("ID", mi.getId());
-        convertedMenuItem.put("itemName", mi.getItemName());
-        convertedMenuItem.put("itemPrice", String.valueOf(mi.getItemPrice()));
-        convertedMenuItem.put("itemCalories", String.valueOf(mi.getItemCalories()));
-        convertedMenuItem.put("itemDescription", mi.getItemDescription());
-        convertedMenuItem.put("itemPicture", mi.getItemPicture());
-        MySQLDB db = new MySQLDB();
+    public final String getSql() {
+        return this.sql;
+    }
 
-        // db.updateRecord(2, convertedMenuItem);
-        db.createRecord(convertedMenuItem);
+    public final Connection getConn() {
+        return conn;
+    }
+
+    public final void setConn(Connection conn) {
+        this.conn = conn;
+    }
+
+    public final String getDriverClassName() {
+        return driverClassName;
+    }
+
+    public final void setDriverClassName(String driverClassName) {
+        this.driverClassName = driverClassName;
+    }
+
+    public final String getUrl() {
+        return url;
+    }
+
+    public final void setUrl(String url) {
+        this.url = url;
+    }
+
+    public final String getUserName() {
+        return userName;
+    }
+
+    public final void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public final String getPassword() {
+        return password;
+    }
+
+    public final void setPassword(String password) {
+        this.password = password;
+    }
+
+    public final Statement getStmt() {
+        return stmt;
+    }
+
+    public final void setStmt(Statement stmt) {
+        this.stmt = stmt;
+    }
+
+    public final ResultSet getRs() {
+        return rs;
+    }
+
+    public final void setRs(ResultSet rs) {
+        this.rs = rs;
+    }
+
+    public final String getTableName() {
+        return tableName;
+    }
+
+    public final void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public static void main(String[] args) {
+        /*   MenuItem mi = new MenuItem("CROSSANT", "2.44", "500", "Buttery goodness", "images/croissantSized.jpg");
+         Map convertedMenuItem = new LinkedHashMap<>();
+         //change id to static db pk auto incr.
+         convertedMenuItem.put("ID", mi.getId());
+         convertedMenuItem.put("itemName", mi.getItemName());
+         convertedMenuItem.put("itemPrice", String.valueOf(mi.getItemPrice()));
+         convertedMenuItem.put("itemCalories", String.valueOf(mi.getItemCalories()));
+         convertedMenuItem.put("itemDescription", mi.getItemDescription());
+         convertedMenuItem.put("itemPicture", mi.getItemPicture());
+         MySQLDB db = new MySQLDB();
+
+         // db.updateRecord(2, convertedMenuItem);
+         db.createRecord(convertedMenuItem);*/
     }
 
 }

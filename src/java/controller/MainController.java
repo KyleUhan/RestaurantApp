@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import model.CalculateOrderTotal;
 import model.MenuItem;
 import model.MenuItemDAO;
-import model.MockDB;
+import model.MemoryMockDB;
 import model.MySQLDB;
 import model.RestaurantService;
 
