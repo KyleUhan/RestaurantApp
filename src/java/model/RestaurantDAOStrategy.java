@@ -7,14 +7,12 @@
 package model;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  *
  * @author Kyle Uhan
  */
 public interface RestaurantDAOStrategy {
-
     
     public abstract List<MenuItem> getAllMenuItems();
 

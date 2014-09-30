@@ -25,7 +25,6 @@
                 padding: 5px;
                 color: white;
                 background: rgba(0,0,0,.8);
-
             }
 
             .adminRadioBtn, #adminSelectionMenu label, .adminSubmitButton{
@@ -160,7 +159,7 @@
             <input id='showAll' class="adminRadioBtn" type="radio" name="adminRadioBtn" value="showAll">
             <label for="showAll">Show All Items</label>
             <input id='clearAll' class="adminRadioBtn" type="radio" name="adminRadioBtn" value="clearAll">
-            <label for="showAll">Reset/Clear All Items</label>
+            <label for="showAll">Clear All Items</label>
         </nav>
 
         <!-- ADD ITEM FORM -->

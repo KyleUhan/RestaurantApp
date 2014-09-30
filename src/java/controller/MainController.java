@@ -41,11 +41,11 @@ public class MainController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession();
 
-        String redirectPage = "";
+        String redirectPage;
         RequestDispatcher view;
-        //  DataAccessService accessService;
+ 
         RestaurantService service;
 
         String command = request.getParameter("command");
@@ -58,18 +58,8 @@ public class MainController extends HttpServlet {
                     service = new RestaurantService(new MenuItemDAO(new MySQLDB()));
                 } else {
                     service = (RestaurantService)session.getAttribute("service");
-                }
-
-              /*  service.addMenuItem(new MenuItem("", "", "", "", "images/fillerItemFadeL.png"));
-                service.addMenuItem(new MenuItem("IMPORTED COFFEE", "2.99", "100", "Fine imported coffee. Molto Bene!", "images/coffee2.png"));
-                service.addMenuItem(new MenuItem("LATTE", "3.49", "210", "Thanks a Latte...", "images/coffee3.jpg"));
-                service.addMenuItem(new MenuItem("HOUSE COFFEE", "1.99", "65", "Our famous home made coffee!", "images/coffeeSized.jpg"));
-                service.addMenuItem(new MenuItem("DESSERT COFFEE", "3.95", "480", "Calorie counters go away.", "images/coffee5.jpg"));
-                service.addMenuItem(new MenuItem("MUFFIN", "3.55", "225", "These muffins are out of control.", "images/muffinSized.jpg"));
-                service.addMenuItem(new MenuItem("", "", "", "", "images/fillerItemFadeR.png"));*/
-
-               // service.updateMenuItem(2,new MenuItem("CROSSANT", "2.44", "500", "Buttery", "images/croissantSized.jpg"));
-                // service.clearAllMenuItem();
+                }           
+                 
                 List<MenuItem> menuItems = service.getAllMenuItems();
                 request.setAttribute("menuItems", menuItems);
                 session.setAttribute("service", service);
@@ -103,6 +93,16 @@ public class MainController extends HttpServlet {
             case "orderComplete":
                 redirectPage = getServletContext().getInitParameter("confirmOrder");
                 String complete = "Complete";
+                
+                /*
+                //Send this stuff to an orders table in restaurant db
+                
+                request.getAttribute("itemName");
+                request.getAttribute("qnty");
+                request.getAttribute("pricePerItem");
+                request.getAttribute("tax");
+                request.getAttribute("total");
+                */
 
                 request.setAttribute("itemName", null);
                 request.setAttribute("qnty", null);

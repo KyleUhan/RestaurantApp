@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <%
     //LIST OF ACTUAL MENU ITEMS
-    List<MenuItem> menuItems = new ArrayList<MenuItem>(30);
+    List<MenuItem> menuItems = new ArrayList<MenuItem>(40);
     //LISTS OF EACH SPECIFIC PORTION OF MENUITEM NEEDEED.
     List<String> menuImages = new ArrayList<String>();
     List<String> menuName = new ArrayList<String>();

@@ -67,6 +67,7 @@ $(function () {
 
 //HANDLES ADD TO ORDER MENU---------------------------------------------------
     var itemsOrdered = [];
+    var itemsOrderPrice = [];
     //var orderAmount = [1, 1, 1, 1, 1];
     var orderAmount = [];
     for (var i = 0; i < menuOptionPics.length - 2; i++) {
@@ -76,6 +77,7 @@ $(function () {
     $('#addToListButton').click(function () {
 
         var item = menuItemName[menuOptionSpot[1]];
+        var price = menuItemPrice[menuOptionSpot[1]];
         var repeatItem = false;
         for (var i = 0; i < itemsOrdered.length; i++) {
             if (itemsOrdered[i] === item) {
@@ -85,15 +87,15 @@ $(function () {
         }
         if (!repeatItem) {
             itemsOrdered.push(item);
+            itemsOrderPrice.push(price);
         }
         $('#orderMenuForm').html("");
         var displayText = "";
         var totalItemAmount;
-
+        
         for (var t = 0; t < itemsOrdered.length; t++) {
-           
-           
-                totalItemAmount = (parseFloat(menuItemPrice[t + 1]) * orderAmount[t]).toFixed(2);
+     
+                totalItemAmount = (parseFloat(itemsOrderPrice[t]) * orderAmount[t]).toFixed(2);
                 displayText = displayText + "<br>" +
                         "<div class='orderItemWrapper'>" +
                         "<div class='removeItem'></div>" +
@@ -102,7 +104,7 @@ $(function () {
                         "' name='itemName" + t +
                         "'/>" +
                         "<div class='menuPrice'>" +
-                        menuItemPrice[t + 1] +
+                        itemsOrderPrice[t] +
                         "</div>" +
                         "<input type='text' maxlength='2' class='qntyInput'" +
                         "name='quantity" + t + "'" +

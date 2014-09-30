@@ -6,10 +6,7 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.FakeDBSingleton;
 import model.MenuItem;
 import model.MenuItemDAO;
 import model.MySQLDB;
@@ -42,12 +38,12 @@ public class AdminController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession();
         RequestDispatcher view;
-        String command = request.getParameter("adminCommand");
+        
         RestaurantService service;
 
-        List<MenuItem> allData;
+        String command = request.getParameter("adminCommand");
         String responseDisplay = "";
 
         if (session.getAttribute("service") == null) {
@@ -55,10 +51,7 @@ public class AdminController extends HttpServlet {
         } else {
             service = (RestaurantService) session.getAttribute("service");
         }
-        //  request.setAttribute("keyValid", key1);
-        // if (key != null && key1.equals(getServletContext().getInitParameter("door"))) {
 
-        //DataAccessStrategy db = FakeDBSingleton.getNewInstance();
         Integer itemId;
         String itemName;
         MenuItem item;
@@ -78,7 +71,7 @@ public class AdminController extends HttpServlet {
                 item.setItemDescription(itemDescription);
                 item.setItemPicture(itemImage);
                 service.addMenuItem(item);
-                responseDisplay = "Item added. ID: " + item.getId();
+                responseDisplay = "Item added.";
                 break;
             case "removeItem":
                 itemId = Integer.parseInt(request.getParameter("itemId"));
@@ -105,8 +98,8 @@ public class AdminController extends HttpServlet {
                 service.updateMenuItem(itemId, item);
                 break;
             case "showAll":
-             /*   allData = service.getAllMenuItems();
-                request.setAttribute("dbContent", allData);*/
+                List<MenuItem> allData = service.getAllMenuItems();
+                request.setAttribute("dbContent", allData);
                 responseDisplay = "List of all db items.";
                 break;
             case "clearAll":
@@ -123,4 +116,43 @@ public class AdminController extends HttpServlet {
 
     }
 
+     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+    
 }
