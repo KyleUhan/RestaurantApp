@@ -32,13 +32,15 @@ public class MySQLDB implements DataBaseAccessStrategy {
     private Statement stmt;
     private ResultSet rs;
     private String sql;
+    private String dbName;
     private String tableName;
 
     public MySQLDB() {
         //DEFAULT VALUES FOR TESTING
+        setDbName("restaurant");
         setTableName("menu_Item");
         setDriverClassName("com.mysql.jdbc.Driver");
-        setUrl("jdbc:mysql://localhost:3306/" + getTableName());
+        setUrl("jdbc:mysql://localhost:3306/" + getDbName());
         setUserName("root");
         setPassword("root");
     }
@@ -276,6 +278,14 @@ public class MySQLDB implements DataBaseAccessStrategy {
 
     public final void setRs(ResultSet rs) {
         this.rs = rs;
+    }
+
+    public final String getDbName() {
+        return dbName;
+    }
+
+    public final void setDbName(String dbName) {
+        this.dbName = dbName;
     }
 
     public final String getTableName() {

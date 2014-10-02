@@ -6,6 +6,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,7 +41,7 @@ public class AdminController extends HttpServlet {
 
         HttpSession session = request.getSession();
         RequestDispatcher view;
-        
+
         RestaurantService service;
 
         String command = request.getParameter("adminCommand");
@@ -55,6 +56,8 @@ public class AdminController extends HttpServlet {
         Integer itemId;
         String itemName;
         MenuItem item;
+        List<MenuItem> allData = new ArrayList<>();
+
         switch (command) {
             case "addItem":
                 item = new MenuItem();
@@ -71,11 +74,14 @@ public class AdminController extends HttpServlet {
                 item.setItemDescription(itemDescription);
                 item.setItemPicture(itemImage);
                 service.addMenuItem(item);
+                
+                request.setAttribute("dbContent", allData);
                 responseDisplay = "Item added.";
                 break;
             case "removeItem":
                 itemId = Integer.parseInt(request.getParameter("itemId"));
                 service.removeMenuItem(itemId);
+                request.setAttribute("dbContent", allData);
                 responseDisplay = "Item removed.";
                 break;
             case "updateItem":
@@ -96,15 +102,19 @@ public class AdminController extends HttpServlet {
                 item.setItemPicture(itemImageUpdate);
 
                 service.updateMenuItem(itemId, item);
+                
+                request.setAttribute("dbContent", allData);
+                responseDisplay = "Item Updated.";
                 break;
             case "showAll":
-                List<MenuItem> allData = service.getAllMenuItems();
+                allData = service.getAllMenuItems();
                 request.setAttribute("dbContent", allData);
                 responseDisplay = "List of all db items.";
                 break;
             case "clearAll":
                 service.clearAllMenuItem();
                 responseDisplay = "Items cleared.";
+                request.setAttribute("dbContent", allData);
                 break;
             default:
         }
@@ -116,7 +126,7 @@ public class AdminController extends HttpServlet {
 
     }
 
-     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -154,5 +164,5 @@ public class AdminController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
+
 }

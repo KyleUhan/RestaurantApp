@@ -34,14 +34,13 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+        HttpSession session = request.getSession();
         RequestDispatcher view;
         String redirectPage = "";
         String command = request.getParameter("action");
 
         switch (command) {
             case "login":
-                String val = "valid";
-                request.setAttribute("passTrue", val);
                 String un = request.getParameter("userName");
                 String up = request.getParameter("userPass");
                 if (un == null) {
@@ -51,9 +50,11 @@ public class LoginController extends HttpServlet {
                     up = "";
                 }
                 if (un.equals(getServletContext().getInitParameter("name")) && up.equals(getServletContext().getInitParameter("photos"))) {
+                    session.setAttribute("passTrue", getServletContext().getInitParameter("valid"));
                     redirectPage = getServletContext().getInitParameter("admin");
                 } else {
                     redirectPage = getServletContext().getInitParameter("loginPage");
+                    session.setAttribute("passTrue", "invalid");
                 }
                 break;
             default:

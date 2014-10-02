@@ -13,7 +13,7 @@
 <%
     //LIST OF ACTUAL MENU ITEMS
     List<MenuItem> menuItems = new ArrayList<MenuItem>(40);
-    //LISTS OF EACH SPECIFIC PORTION OF MENUITEM NEEDEED.
+    //LISTS OF EACH SPECIFIC PORTION OF MENUITEM NEEDEED FOR SLIDER INJECTION.
     List<String> menuImages = new ArrayList<String>();
     List<String> menuName = new ArrayList<String>();
     List<String> menuDescription = new ArrayList<String>();
@@ -26,6 +26,10 @@
         response.sendRedirect("MainController?command=getMenuItems");
     } else {
         menuItems = (List<MenuItem>) obj;
+        /*The following 2 items are added specifically for only the slider*/
+        menuItems.add(0,new MenuItem("", "", "", "", "images/fillerItemFadeL.png"));
+        menuItems.add(new MenuItem("", "", "", "", "images/fillerItemFadeR.png"));
+        
         for (MenuItem mi : menuItems) {
             menuImages.add(mi.getItemPicture());
             menuName.add(mi.getItemName());

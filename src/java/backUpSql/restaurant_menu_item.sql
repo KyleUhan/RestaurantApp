@@ -41,7 +41,7 @@ CREATE TABLE `menu_item` (
 
 LOCK TABLES `menu_item` WRITE;
 /*!40000 ALTER TABLE `menu_item` DISABLE KEYS */;
-INSERT INTO `menu_item` VALUES (1,'',0.00,0.00,NULL,'images/fillerItemFadeL.png'),(2,'IMPORTED COFFEE',2.99,100.00,'Fine imported coffee. Molto Bene!','images/coffee2.png'),(3,'LATTE',3.49,210.00,'Thanks a Latte...','images/coffee3.jpg'),(4,'HOUSE COFFEE',1.99,65.00,'Our famous home made coffee!','images/coffeeSized.jpg'),(5,'DESSERT COFFEE',3.95,480.00,'Calorie counters go away.','images/coffee5.jpg'),(6,'MUFFIN',3.55,225.00,'These muffins are out of control.','images/muffinSized.jpg'),(7,NULL,0.00,0.00,NULL,'images/fillerItemFadeR.png');
+INSERT INTO `menu_item` VALUES (2,'IMPORTED COFFEE',2.99,100.00,'Fine imported coffee. Molto Bene!','images/coffee2.png'),(3,'LATTE',3.49,210.00,'Thanks a Latte...','images/coffee3.jpg'),(4,'HOUSE COFFEE',1.99,65.00,'Our famous home made coffee!','images/coffeeSized.jpg'),(5,'DESSERT COFFEE',3.95,480.00,'Calorie counters go away.','images/coffee5.jpg'),(6,'MUFFIN',3.55,225.00,'These muffins are out of control.','images/muffinSized.jpg');
 /*!40000 ALTER TABLE `menu_item` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-09-28 23:06:18
+-- Dump completed on 2014-09-30 18:40:09

@@ -88,7 +88,12 @@
             #tesingArea{
                 background: rgba(0,0,0,.8);
                 color: white;
-                border: 1px solid yellow;
+            }
+            
+            .dbItem{
+                border-bottom: 2px solid black;
+                background: rgba(0,0,0,.8);
+                color: white;
             }
         </style>
         <script>
@@ -144,9 +149,7 @@
             </form>
         </header>
         <%
-         //   Object key = request.getAttribute("keyValid");
-            //    String theKey = (String) key;
-            //     if (key == null) {
+            if (session.getAttribute("passTrue") == getServletContext().getInitParameter("valid")) {
         %>    
 
         <nav id='adminSelectionMenu'>
@@ -275,14 +278,17 @@
             <br>
         </form>
         <%
-           // }
+            }
         %>
         <p id='tesingArea'>
             <br>
             This area is for testing:<br>
             ${responseDisplay}
-
+            <br>
+            <c:forEach var='item' items="${dbContent}">
+                <div class='dbItem'>"${item}</div>
+            </c:forEach>
         </p>
-    </p>
+        
 </body>
 </html>
